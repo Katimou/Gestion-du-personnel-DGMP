@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/assets/img/favicon.png}">
+    <title>Gestion du Personnel</title>
+    <link th:href="@{https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">  
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <th:block th:replace="layout/header-frag.html::header"></th:block>
+        <th:block th:replace="layout/sidebar-frag.html::sidebar"></th:block>
+
+        <div class="page-wrapper" >
+            <div class="content container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div layout:fragment="content">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <th:block th:replace="layout/topbar-frag.html::topbar" ></th:block>
+        </th:block>
+    </div>
+    <div class="sidebar-overlay" data-reff=""></div>
+    
+    
+    <script type="text/javascript" th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/popper.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/app.js}"></script>
+    <script type="text/javascript"th:src="@{/assets/js/jquery.slimscroll.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/select2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/moment.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/bootstrap-datetimepicker.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/plugins/morris/morris.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/plugins/raphael/raphael-min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/fullcalendar.min.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/jquery.fullcalendar.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/chart.js}"></script>
+    <script type="text/javascript" th:src="@{/assets/js/popup.js}"></script>
+    
+  <script type="text/javascript">
+                    $("#tutelle").change(function(e)
+                    {
+                    	const strId = e.target.value;
+                        $.ajax({url: "http://localhost:8887/types/getSousTypeCompatiblesByStrId/"+strId, success: function(result){
+                            console.log("http://localhost:8887/types/getSousTypeCompatiblesByTypId/"+strId);
+                            $("#strType").children("option").remove();
+                            $("#strType").append("<option value='0'>Choix du type</option>")
+                            $.each(result, function(index, type){
+                            	$("#strType").append("<option value=" + type["typId"] + ">" +  type["typNom"] + "</option>");
+                            })
+                        }});
+                    });
+                </script> 
+</body>
+
+</html>

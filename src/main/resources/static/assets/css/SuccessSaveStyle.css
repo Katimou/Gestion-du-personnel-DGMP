@@ -1,0 +1,47 @@
+    body {
+        text-align: center;
+        padding: 40px 0;
+        background:#54ab75;
+      }
+        h1 {
+          color: #88B04B;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-weight: 900;
+          font-size: 40px;
+          margin-bottom: 10px;
+        }
+        p {
+          color: #404F5E;
+          font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+          font-size:20px;
+          margin: 0;
+        }
+      i {
+        color: #9ABC66;
+        font-size: 100px;
+        line-height: 200px;
+        margin-left:-15px;
+      }
+      .carde {
+        background: white;
+        padding: 60px;
+        border-radius: 4px;
+        box-shadow: 0 2px 3px #C8D0D8;
+        display: inline-block;
+        margin: 0 auto;
+      }
+      .soumettre{
+      background-color: #55ce63;
+      border: 3px solid  #88B04B;
+      margin:10px;
+      padding: 20px;
+     }
+     .text-center{
+     text-align: center;
+     margin-top: 20px;
+     position: relative; 
+     margin-top: 30px;
+      margin-bottom: 1.25rem;
+     }
+  
+   

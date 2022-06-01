@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout}">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0">
+<link rel="shortcut icon" type="image/x-icon"
+	href="assets/img/favicon.png">
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/fullcalendar.min.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/select2.min.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" type="text/css"
+	href="assets/plugins/morris/morris.css">
+
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="content container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="card-box">
+						<div class="card-block">
+							<h5 class="text-bold card-title">striped Rows</h5><br>
+							<div class="table-responsive">
+								<form th:action="@{/agents/changeAss}" method="post">
+									<table class="table table-striped m-b-0">
+										<thead>
+										<tr>
+											<th>Structure</th>
+											<th>Role</th>
+											<th>Début</th>
+											<th>Fin</th>
+											<th>Choix</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr th:each="ass:${assignations}">
+											<td th:text="${ass.getAssStruct().getStrSigle()}" th:title="${ass.assStruct.display()}"></td>
+											<td th:text="${ass.getAssRole().rleNom}"></td>
+											<td th:text="${ass.getAssDateDebut()}"></td>
+											<td th:text="${ass.getAssDateFin()}"></td>
+											<td>
+												<input type="radio" name="assId" th:value="${ass.assId}"
+													   th:checked="${ass.isAssCour()}">
+											</td>
+										</tr>
+
+										</tbody>
+									</table>
+									<button class="btn btn-success" type="submit">Valider</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+</body>
+
+</html>

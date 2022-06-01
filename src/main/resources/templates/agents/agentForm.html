@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layout/layout}">
+		<head>
+			<meta charset="utf-8">
+		</head>
+<body>
+
+ <div class="content container-fluid">
+                <div class="page-header">
+					<div class="row">
+						<div class="col-lg-7 col-md-12 col-sm-12 col-12">
+							<h5 class="text-uppercase">Ajouter Agents</h5>
+						</div>
+						<div class="col-lg-5 col-md-12 col-sm-12 col-12">
+							<ul class="list-inline breadcrumb float-right">
+								<li class="list-inline-item"><a href="index.html">Homr</a></li>
+								<li class="list-inline-item"><a href="index.html">Agents</a></li>
+								<li class="list-inline-item"> Modifier</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="page-content">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+							<div class="card">
+								<div class="page-title">
+									<div class="row">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+											<div class="Page-title">Informations Civiles </div>
+										</div>
+									</div>
+								</div>
+								<div class="card-body">	
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-6 col-12">
+											 <form class="custom-mt-form">
+												<div class="form-group custom-mt-form-group">
+													<input type="text"  />
+													<label class="control-label">Nom</label><i class="bar"></i>
+												</div>
+												<div class="form-group custom-mt-form-group">
+													<input type="text"  />
+													<label class="control-label">Prenom</label><i class="bar"></i>
+												</div>
+												<div class="form-group custom-mt-form-group">
+													<input type="password"  />
+													<label class="control-label">Date de naissance</label><i class="bar"></i>
+												</div>
+												<div class="form-group custom-mt-form-group">
+													<input type="text"  />
+													<label class="control-label">Nationnalite</label><i class="bar"></i>
+												</div>
+												<div class="form-group custom-mt-form-group">
+													<select >
+														<option>Feminin</option>
+														<option>Masculin</option>
+													 </select>
+													 <label class="control-label">Genre</label><i class="bar"></i>
+												</div>
+												<div class="form-group custom-mt-form-group">
+													 <input class="datetimepicker" type="text"> 
+													<label class="control-label">Situation Matrimoniale</label><i class="bar"></i>
+												</div>
+												<div class="form-group custom-mt-form-group">
+													<input type="text"  />
+													<label class="control-label">Adresse</label><i class="bar"></i>
+												</div>
+												<div class="form-group custom-mt-form-group">
+													<input type="text"  />
+													<label class="control-label">Telephone</label><i class="bar"></i>
+												</div>
+											</form>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-6 col-12">
+											<form class="custom-mt-form">
+												<div class="form-group custom-mt-form-group">
+													<input type="text"  >
+													<label class="control-label">Lastname</label><i class="bar"></i>
+												</div>
+												<div class="form-group custom-mt-form-group">
+													 <input class="form-control floating datetimepicker" type="text" >
+													<label class="control-label">Joining Date</label><i class="bar"></i>
+												</div>
+												<div class="form-group custom-mt-form-group">
+													<input type="password"  />
+													<label class="control-label">Comfirm Password</label><i class="bar"></i>
+												</div>
+												<div class="form-group custom-mt-form-group">
+													<input type="number"  />
+													<label class="control-label">Mobile number</label><i class="bar"></i>
+												</div>
+												<div class="form-group custom-mt-form-group">
+													<input type="text"  />
+													<label class="control-label">Admission No</label><i class="bar"></i>
+												</div>
+												<div class="form-group custom-mt-form-group">
+													<input type="text"  />
+													<label class="control-label">ID</label><i class="bar"></i>
+												</div>
+												<div class="form-group custom-mt-form-group">
+													<input type="text"  />
+													<label class="control-label">Section</label><i class="bar"></i>
+												</div>									
+											</form>
+										</div>
+										
+										<div class="page-title w-100 mt-4">
+											<div class="row">
+												<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+													<div class="page-title pl-3">Parents information</div>
+												</div>
+											</div>
+										</div>
+										<div class="card-body w-100 p-3">	
+											<div class="row">
+												<div class="col-lg-6 col-md-6 col-sm-6 col-12">
+													 <form class="custom-mt-form">
+														<div class="form-group custom-mt-form-group">
+															<input type="text" />
+															<label class="control-label">Father Name</label><i class="bar"></i>
+														</div>
+														<div class="form-group custom-mt-form-group">
+															<input type="text" />
+															<label class="control-label">Father Occupation</label><i class="bar"></i>
+														</div>
+														<div class="form-group custom-mt-form-group">
+															<input type="number"  />
+															<label class="control-label">Mobile number</label><i class="bar"></i>
+														</div>
+														<div class="form-group">
+															<textarea id="message" class="form__field" placeholder="Present Address" rows="4"></textarea>
+															<label for="message" class="form-label">Present Address</label>
+														</div>
+													</form>
+												</div>
+												
+												<div class="col-lg-6 col-md-6 col-sm-6 col-12">
+													 <form class="custom-mt-form">
+														<div class="form-group custom-mt-form-group">
+															<input type="text"  />
+															<label class="control-label">Mother Name</label><i class="bar"></i>
+														</div>
+														<div class="form-group custom-mt-form-group">
+															<input type="text"  />
+															<label class="control-label">Mother Occupation</label><i class="bar"></i>
+														</div>
+														<div class="form-group custom-mt-form-group">
+															<input type="text"  />
+															<label class="control-label">Nationality</label><i class="bar"></i>
+														</div>
+														<div class="form-group">
+															<textarea id="message" class="form__field" placeholder="Premanent Address" rows="4"></textarea>
+															<label for="message" class="form-label">Premanent Address</label>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+											<form class="custom-mt-form">
+												<div class="form-group custom-mt-form-group">
+													  <input type="file" name="pic" accept="image/*" style="margin-bottom:10px;">
+													<label class="control-label">Student Image</label><i class="bar"></i>
+												</div>
+											</form>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+											<form class="custom-mt-form">
+												<div class="form-group custom-mt-form-group">
+													  <input type="file" name="pic" accept="image/*" style="margin-bottom:10px;">
+													<label class="control-label">Parents Image</label><i class="bar"></i>
+												</div>
+											</form>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+											<form class="custom-mt-form">
+												<div class="form-group text-center custom-mt-form-group">
+													<button class="btn btn-primary mr-2" type="submit">Submit</button>
+													<button class="btn btn-secondary" type="reset">Cancel</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+</body>
+
+</html>

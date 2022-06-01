@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/assets/css/SuccessSaveStyle.css}">
+</head>
+<body>
+<body>
+	<div class="card">
+		<div
+			style="border-radius: 200px; height: 200px; width: 200px; background: #F8FAF5; margin: 0 auto;">
+			<i class="checkmark">✓</i>
+		</div>
+		<h1>Success</h1>
+		<div th:if="${agent}">
+        	<p th:text="${agent.agtNom} + ' '+ ${agent.agtPrenom} + ' a été  enregistré(e)'+ ' avec succès!'"></p>
+        </div>
+
+	</div>
+</body>
+</html>
