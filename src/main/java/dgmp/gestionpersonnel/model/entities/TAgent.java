@@ -73,6 +73,7 @@ public class TAgent {
 
 	public boolean isResponsable()
 	{
+		if(this.agtStructure.getStrRespo()==null) return false;
 		return this.agtStructure.getStrRespo().getAgtId().equals(this.agtId);
 	}
 }

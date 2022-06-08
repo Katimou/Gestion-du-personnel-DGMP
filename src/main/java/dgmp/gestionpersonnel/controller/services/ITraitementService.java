@@ -12,4 +12,8 @@ public interface ITraitementService
     void soumettreDemandeAct(Long dmeId);
     void editerAct(Long dmeId);
     void attacherAct(Long dmeId, MultipartFile act);
+
+
+
+
 }

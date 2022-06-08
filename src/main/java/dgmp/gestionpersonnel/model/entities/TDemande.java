@@ -20,7 +20,7 @@ import lombok.ToString;
 
 
 @Entity
-@Data @AllArgsConstructor  @NoArgsConstructor @ToString
+@Data @AllArgsConstructor  @NoArgsConstructor
 
 public class TDemande {
 
@@ -37,12 +37,26 @@ public class TDemande {
 	private LocalDate dmeDateFin;
 	private String dmeDate;
 	private String dmeMotif;
-	private String dmeDestination;
+	@ManyToOne
+	private TStructure dmeDestination;
 	private int dmeNbreJours;
 	@Enumerated(EnumType.STRING)
 	private EtatDemande dmeEtat;
-	
 
+	@Override
+	public String toString() {
+		return "TDemande{" +
+				"dmeId=" + dmeId +
+				", dmeDocId=" + dmeDocId +
+				", dmeType=" + dmeType +
+				", dmeDateDebut=" + dmeDateDebut +
+				", dmeDateFi=" + dmeDateFin +
+				", dmeDate='" + dmeDate + '\'' +
+				", dmeMotif='" + dmeMotif + '\'' +
+				", dmeDestination='" + dmeDestination + '\'' +
+				", dmeNbreJours=" + dmeNbreJours +
+				'}';
+	}
 }
 
 

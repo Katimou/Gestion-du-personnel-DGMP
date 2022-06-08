@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout}">
-
 <head>
 <meta charset="utf-8">
 </head>
@@ -29,18 +28,18 @@
                                                 </tr>
 											</thead>
 											<tbody>
-												<tr th:each="d:${demandes}">
+												<tr th:each="d:${demandes}" th:class="${@demandeController.getBootstrapClass(d)}">
 												<td th:text="${d.dmeDemandeur==null ? '' : d.dmeDemandeur.display()}">
 											    <td th:text="${d.dmeType.typNom}">
 												<td th:text="${d.dmeDate}">
 												 <td th:text="${d.dmeEtat}"/>
 													<td class="text-right" style="min-width: 98px;">
-														<a href="edit-student.html" class="btn btn-warning  btn-sm mb-1">
+														<a th:if="${d.dmeEtat.name()=='INITIE'}" href="edit-student.html" class="btn btn-warning  btn-sm mb-1">
 															<i class="fa fa-pencil colores" aria-hidden="true"></i>
 														</a>
 													</td>
 											 		<td style="margin-right: 60px";>
-                                                        <a href="edit-student.html" class="btn btn-succes colore  btn-sm mb-1">
+                                                        <a th:href="@{'/demandes/traitements/soumission?dmeId=' + ${d.dmeId}}" class="btn btn-succes colore  btn-sm mb-1">
 														<i class="fa fa-check " aria-hidden="true"></i>
 														</a>
 												   </td>

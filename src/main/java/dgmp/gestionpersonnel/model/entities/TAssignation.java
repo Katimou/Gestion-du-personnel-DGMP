@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 @Entity
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
 public class TAssignation 
 {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -29,4 +29,5 @@ public class TAssignation
 	@ManyToOne
 	private TStructure assStruct;
 	private boolean assCour;
+
 }

@@ -19,9 +19,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 @Entity
-@Getter @Setter @AllArgsConstructor  @NoArgsConstructor @ToString
+@Getter @Setter @AllArgsConstructor  @NoArgsConstructor
 
 public class TStructure {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -47,6 +48,17 @@ public class TStructure {
 	{
 		return strNomStruc + " (" + strSigle +")";
 	}
+
+	@Override
+	public String toString() {
+		return "TStructure{" +
+				"strIdId=" + strId +
+				", strNomStruc=" + strNomStruc +
+				", strSigle=" + strSigle +
+				", strSiteGeo=" + strSiteGeo +
+				", strNiveau=" + strNiveau +
+				'}';
+	}
 	
 	
 }
@@ -54,7 +66,7 @@ public class TStructure {
 
 
 
-	
+
 	
 	
 	

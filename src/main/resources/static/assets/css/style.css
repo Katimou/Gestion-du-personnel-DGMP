@@ -69,6 +69,11 @@ h3, .h3 {font-size: 1.5rem;}
 h4, .h4 {font-size: 1.125rem;}
 h5, .h5 {font-size: 0.875rem;}
 h6, .h6 {font-size: 0.75rem;}
+.initie{background-color:darkgrey!important;}
+.soumis{background-color:grey !important;}
+.encours{background-color:gray!important;}
+.valide{background-color:darkgreen!important;}
+.refuse{background-color: darkorange!important;}
 .tope{margin-top:30px;}
 a:hover,
 a:active,

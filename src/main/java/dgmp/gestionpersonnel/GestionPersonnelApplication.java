@@ -35,7 +35,7 @@ public class GestionPersonnelApplication {
 					.agtUsername("kataye")
 					.agtPasswword(passwordEncoder.encode("samie"))
 					.agtActive(true)
-					.agtTel(56780084)
+					.agtTel("56780084")
 			    	.agtAdresse("Riviera")
 					.agtDateNaiss(new Date())
 					.agtEmail("nomakatimou3@gmail.com")

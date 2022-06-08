@@ -54,6 +54,12 @@
                                 <li><a th:href="@{/demandes/listeDocuments}">Demandes documents </a></li>
                             </ul>
                         </li>
+                        <li class="submenu">
+                            <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i><span>Demandes adressées</span> <span class="menu-arrow"></span></a>
+                            <ul class="list-unstyled" style="display: none;">
+                                <li><a th:if="${@scs.hasAnyAuthority('RH', 'RESPONSABLE', 'SECRETAIRE')}" th:href="@{/demandes/DemandeAdressees}">Listes</a></li>
+                            </ul>
+                        </li>
 						<!-- <li class="submenu">
                             <a href="javascript:void(0);"><i class="fa fa-share-alt" aria-hidden="true"></i> <span>Apps</span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">

@@ -21,4 +21,7 @@ public interface TTypeRepository extends JpaRepository<TType,Long>
 	TType findByStrId(@Param("strId") Long strId);
 	
 	TType findByTypNom(String typNom);
+
+	@Query("select (count (tsp) > 0 ) from TTypeStructureParam tsp where tsp.tspTypeParent.typNom = ?1 and tsp.tspSousType.typNom = ?2")
+	boolean isSousType(String typNom, String sousTypeNom);
 }
