@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import dgmp.gestionpersonnel.controller.repositories.TAssignationRepository;
 import dgmp.gestionpersonnel.model.entities.TAssignation;
 import dgmp.gestionpersonnel.security.services.ISecurityContextService;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.weaver.loadtime.Agent;
 import org.primefaces.shaded.commons.io.FilenameUtils;
 import org.springframework.data.domain.Sort;
@@ -46,6 +47,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(path = "/agents")
+@Slf4j
 public class AgentController {
 
 //	private final AgentController agentService;
@@ -161,11 +163,11 @@ public class AgentController {
 	}
 
 	@GetMapping(path = "/login")
-	public String goToLogin() {
-
+	public String goToLogin(Model model, @RequestParam(name = "error", defaultValue = "false") boolean hasError) {
+		model.addAttribute("error", hasError);
 		return "agents/login";
-
 	}
+
 
 	/*
 	 * @PostMapping(path = "/loginTest") public String
