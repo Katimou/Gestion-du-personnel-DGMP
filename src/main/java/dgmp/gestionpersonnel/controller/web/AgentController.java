@@ -213,18 +213,7 @@ public class AgentController {
 		return "/agents/changeAss";
 	}
 
-	@PostMapping(path = "/changeAss")
-	public String changeAss(@RequestParam(name = "assId") long assId)
-	{
-		scs.getCurrentAss().setAssCour(false);
-		TAssignation tAssignation= assRep.findById(assId).orElse(null);
-		tAssignation.setAssCour(true);
-		tAssignation = assRep.save(tAssignation);
-		SecurityContextHolder.getContext().getAuthentication().getAuthorities().forEach(auth->System.out.println("AVANT ACTUALISATION : "+ auth));
-		Authentication authentication = new UsernamePasswordAuthenticationToken(scs.getAuthUser(), null, scs.getAuthUser().getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return "redirect:/agents/index";
-	}
+
 	
 	/*
 	 * @GetMapping(path = "/updateSuccess") public String GoToUpdateSuccess(Model

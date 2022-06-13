@@ -21,6 +21,12 @@ public interface TAssignationRepository extends JpaRepository<TAssignation, Long
 	@Query("select t from TAssignation t where t.assAgent.agtId = ?1")
 	List<TAssignation> findByAgtId(Long agtId);
 
+	@Query("select (count(t) > 0) from TAssignation t where t.assAgent.agtId = ?1 and t.assRole.rleId = ?2 and t.assStruct.strId = ?3 and t.assCour = true")
+	boolean existsByAssAgent_AgtIdAndAssRole_RleIdAndAssStruct_StrId(Long agtId, Long rleId, Long strId);
+
+	@Query("select t from TAssignation t where t.assAgent.agtId = ?1 and t.assStruct.strId = ?2 and t.assRole.rleId = ?3")
+	TAssignation findByAgtStrRle(Long agtId, Long strId, Long rleId);
+
 
 	
 }

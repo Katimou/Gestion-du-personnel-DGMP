@@ -1,13 +1,11 @@
 package dgmp.gestionpersonnel.controller.repositories;
 
 import java.util.List;
-import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import dgmp.gestionpersonnel.model.entities.TAgent;
-import dgmp.gestionpersonnel.model.entities.TDemande;
 import dgmp.gestionpersonnel.model.entities.TStructure;
 
 public interface TStructureRepository extends JpaRepository<TStructure, Long>
@@ -28,6 +26,10 @@ public interface TStructureRepository extends JpaRepository<TStructure, Long>
 	public List<TStructure> findStructureFilles(@Param("strId") Long strId);
 	public List<TStructure> findByStrTutelleDirecte_StrId (@Param("strId") Long strId);
 	public List<TStructure> findByStrNomStruc(String nomStructure);
+
+	@Query("select t from TStructure t where t.strId = ?1")
+	 TStructure getStrById(Long strId);
+
 
 
 	

@@ -65,7 +65,12 @@ public class TAgent {
 	private String agtPhotoPath;
 	@Transient
 	private MultipartFile agtPhotoFile;
-	public String display()
+
+    public TAgent(Long agtId) {
+    	this.agtId=agtId;
+    }
+
+    public String display()
 	{
 		System.out.println(String.format("Affichage agent id=%d %s %s (%s)", agtId, agtNom, agtPrenom, agtMatricule));
 		return String.format("%s %s (%s)", agtNom, agtPrenom, agtMatricule);

@@ -11,7 +11,10 @@ import lombok.*;
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor  @ToString
 public class TRole{
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long RleId;
-	private String RleNom;
+	private Long rleId;
+	private String rleNom;
 
+    public TRole(Long rleId) {
+    	this.rleId=rleId;
+    }
 }

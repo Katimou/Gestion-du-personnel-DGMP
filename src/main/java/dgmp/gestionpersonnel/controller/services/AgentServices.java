@@ -1,11 +1,16 @@
 package dgmp.gestionpersonnel.controller.services;
 
+import dgmp.gestionpersonnel.controller.repositories.StrParamRepository;
 import dgmp.gestionpersonnel.controller.repositories.TAgentRepository;
+import dgmp.gestionpersonnel.controller.repositories.TRoleRepository;
 import dgmp.gestionpersonnel.controller.repositories.TStructureRepository;
 import dgmp.gestionpersonnel.controller.utilities.ArchivageConstants;
 import dgmp.gestionpersonnel.controller.utilities.IFilesManager;
 import dgmp.gestionpersonnel.controller.validator.exception.AppException;
 import dgmp.gestionpersonnel.model.entities.TAgent;
+import dgmp.gestionpersonnel.model.entities.TAssignation;
+import dgmp.gestionpersonnel.model.entities.TRole;
+import dgmp.gestionpersonnel.model.entities.TStructure;
 import lombok.RequiredArgsConstructor;
 import org.primefaces.shaded.commons.io.FilenameUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,9 +30,10 @@ public class AgentServices implements IAgentServices
 	private final IStructureService strService;
 	private final TStructureRepository strRep;
 	private final IFilesManager filesManager;
-	
-	
-	@Override
+	private  final IAssService assService;
+	private  final StrParamRepository strParamRep;
+	private  final TRoleRepository rleRep;
+   @Override
 	@Transactional
 	public TAgent createAgent(TAgent agent)
 	{
@@ -35,7 +41,11 @@ public class AgentServices implements IAgentServices
 		System.out.println("Password = " + agent.getAgtPasswword());
 		if(!agent.getAgtPasswword().equals(agent.getAgtRePasswword())) throw new AppException("Le mot de passe de confirmation doit être identique au mot de passe");
 		agent.setAgtPasswword(encoder.encode(agent.getAgtPasswword()));
+		TStructure structure=agent.getAgtStructure()!=null ?agent.getAgtStructure():strParamRep.findStructureMere().getStructure();
+		agent.setAgtStructure(structure);
 		agent = agentRep.save(agent);
+		TRole role=  rleRep.findByRleNom("AGENT");
+		assService.createAss(agent.getAgtId(),role.getRleId(),agent.getAgtStructure().getStrId());
 		System.out.println("Agent Save with Id : " + agent.getAgtId());
 		if (agent.getAgtPhotoFile() != null) 
 		{
@@ -49,12 +59,10 @@ public class AgentServices implements IAgentServices
 		}
 		return agent;
 	}
-
 	@Override
 	public List<TAgent> getAllAgentsByStrId(long strId) 
 	{   
 		if(!strRep.existsById(strId)) return Collections.emptyList();
 		return strService.getAllStructureFilles(strId).stream().flatMap(str->agentRep.findByAgtStructure_strId(str.getStrId()).stream()).collect(Collectors.toList());
-		
 	}
 }

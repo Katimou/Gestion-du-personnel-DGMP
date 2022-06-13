@@ -21,5 +21,12 @@ public interface TAgentRepository extends JpaRepository<TAgent, Long>
     public List<TAgent> findByAgtActiveTrue();
     public List<TAgent> findAllByOrderByAgtIdAsc();
     public List<TAgent> findByAgtStructure_strId(Long strId);
+
+	@Query("select t from TAgent t where t.agtId = ?1")
+	TAgent getAgtById(Long agtId);
+
+
+
+
 	
 }

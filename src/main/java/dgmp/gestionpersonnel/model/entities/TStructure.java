@@ -49,6 +49,10 @@ public class TStructure {
 		return strNomStruc + " (" + strSigle +")";
 	}
 
+	public TStructure(Long strId) {
+		this.strId = strId;
+	}
+
 	@Override
 	public String toString() {
 		return "TStructure{" +
