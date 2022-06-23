@@ -1,14 +1,9 @@
 package dgmp.gestionpersonnel.model.entities;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -37,11 +32,17 @@ public class TDemande {
 	private LocalDate dmeDateFin;
 	private String dmeDate;
 	private String dmeMotif;
+	private String dmeLieuDepart;
 	@ManyToOne
 	private TStructure dmeDestination;
 	private int dmeNbreJours;
 	@Enumerated(EnumType.STRING)
 	private EtatDemande dmeEtat;
+	@ManyToOne
+	private  TTraitement traitement;
+
+	@Transient
+	private List<TTraitement> traitements;
 
 	@Override
 	public String toString() {

@@ -327,7 +327,7 @@ textarea.form-control {height: auto;}
 .sidebar-menu li.menu-title a.add-user-icon i {font-size: 14px;margin-left: 0;margin-right: 0;}
 .sidebar-menu li.menu-title a.btn {color: #fff;display: block;float: none;font-size: 15px;line-height: inherit;margin-bottom: 15px;}
 .sidebar-menu li.menu-title a.btn:hover {color:#fff;}
-.sidebar-menu ul ul a.active {color: #01c0c8;text-decoration: underline;}
+.sidebar-menu ul ul a.active {color: #faa937;text-decoration: underline;}
 .mobile-user-menu {color: #fff;display: none;font-size: 24px;height: 60px;line-height: 60px;padding: 0 20px;position: absolute;right: 0;text-align: right;top: 0;width: 60px;z-index: 10;}
 .mobile-user-menu > a {color:#01c0c8;padding:0;}
 .mobile-user-menu > a:hover {color:#01c0c8;}

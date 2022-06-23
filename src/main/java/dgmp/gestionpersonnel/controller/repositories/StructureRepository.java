@@ -8,8 +8,10 @@ import org.springframework.data.repository.query.Param;
 
 import dgmp.gestionpersonnel.model.entities.TStructure;
 
-public interface TStructureRepository extends JpaRepository<TStructure, Long>
+public interface StructureRepository extends JpaRepository<TStructure, Long>
 {
+	@Query("select t from TStructure t where t.strNiveau = ?1")
+	List<TStructure> findByNiveauStr(int strNiveau);
 	//public List<TAgent> findByDmeId(Long id);
 	/*
 	 * public Optional<TAgent> findByAgtUsername(String username); public
@@ -24,7 +26,13 @@ public interface TStructureRepository extends JpaRepository<TStructure, Long>
 	
 	@Query("select s from TStructure s where s.strTutelleDirecte.strId=:strId")
 	public List<TStructure> findStructureFilles(@Param("strId") Long strId);
+	@Query("select t from TStructure t where t.strTutelleDirecte.strId = :strId")
 	public List<TStructure> findByStrTutelleDirecte_StrId (@Param("strId") Long strId);
+
+	@Query("select t from TStructure t where t.strTutelleDirecte.strTutelleDirecte.strId = ?1")
+	TStructure findByStrTutelleDirecte_StrTutelleDirecte_StrId(Long strId);
+
+
 	public List<TStructure> findByStrNomStruc(String nomStructure);
 
 	@Query("select t from TStructure t where t.strId = ?1")

@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import dgmp.gestionpersonnel.controller.repositories.TAgentRepository;
+import dgmp.gestionpersonnel.controller.repositories.AgentRepository;
 import dgmp.gestionpersonnel.model.entities.TAgent;
 import lombok.RequiredArgsConstructor;
 
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AppUserDetailsService implements UserDetailsService
 {
-	private final TAgentRepository agentRep;
+	private final AgentRepository agentRep;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout}">
+
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+                    <h5 class="text-uppercase">Mouvement d'un agent</h5>
+                </div>
+                <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                    <ul class="list-inline breadcrumb float-right">
+                        <li class="list-inline-item"><a href="#">accueil</a></li>
+                        <li class="list-inline-item"><a href="#">liste Agent</a></li>
+                        <li class="list-inline-item">Basic Inputs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-box">
+                    <form method="post" th:action="@{/mouvements/saveAffectation}" th:object="${mvt}">
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Matricule</label>
+                            <div class="col-md-10">
+                                <input  disabled type="number" class="form-control" th:field="*{mvtAgent.agtMatricule}"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Noms</label>
+                            <div class="col-md-10">
+                                <input disabled type="text" class="form-control" th:value="*{mvtAgent.agtNom}"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Prénoms</label>
+                            <div class="col-md-10">
+                                <input disabled type="text" class="form-control" th:value="*{mvtAgent.agtPrenom}"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Structure d'origine</label>
+                            <div class="col-md-10">
+                                <input type="hidden" class="form-control" readonly th:field="*{mvtAgent.agtId}" name="agtId" th:value="${mvt.mvtAgent.agtId}" />
+                                <input type="hidden" class="form-control" readonly th:field="*{mvtStructureOrigine.strId}"  th:value="${mvt.mvtAgent.agtId}" />
+                                <input  disabled type="text" class="form-control" readonly th:value="*{mvtAgent.agtStructure.display()}"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">structure de destination</label>
+                            <div class="col-md-10">
+                                <select required="required" class="form-control" th:field="*{mvtStructureDes.strId}" >
+                                    <option value="">structure de destination</option>
+                                    <option th:each="str:${structures}"  th:value="${str.strId}" th:text="${str.display()}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="form-group text-center">
+                                <button class="btn btn-primary mr-2 soumettre" type="submit">Affecter</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

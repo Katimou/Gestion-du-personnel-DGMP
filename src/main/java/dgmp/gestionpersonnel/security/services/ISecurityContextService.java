@@ -1,6 +1,7 @@
 package dgmp.gestionpersonnel.security.services;
-
 import dgmp.gestionpersonnel.model.entities.TAssignation;
+import dgmp.gestionpersonnel.model.entities.TDemande;
+import dgmp.gestionpersonnel.model.entities.TStructure;
 
 import java.util.List;
 

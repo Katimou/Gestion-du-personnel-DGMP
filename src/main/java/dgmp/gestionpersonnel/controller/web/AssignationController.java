@@ -1,10 +1,6 @@
 package dgmp.gestionpersonnel.controller.web;
-
-import dgmp.gestionpersonnel.controller.repositories.TAgentRepository;
-import dgmp.gestionpersonnel.controller.repositories.TAssignationRepository;
-import dgmp.gestionpersonnel.controller.services.IAgentServices;
+import dgmp.gestionpersonnel.controller.repositories.AssignationRepository;
 import dgmp.gestionpersonnel.controller.services.IAssService;
-import dgmp.gestionpersonnel.controller.utilities.IFilesManager;
 import dgmp.gestionpersonnel.model.entities.TAssignation;
 import dgmp.gestionpersonnel.security.services.ISecurityContextService;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(path = "/agents")
+@RequestMapping(path = "/ass")
 @Slf4j
 public class AssignationController {
     private final ISecurityContextService scs;
-    private final TAssignationRepository assRep;
+    private final AssignationRepository assRep;
     private final IAssService assService;
     @PostMapping(path = "/change")
     public String changeAss(@RequestParam(name = "assId") long assId)
@@ -43,6 +39,5 @@ public class AssignationController {
         assService.createAss(agtId,rleId,strId);
         return "redirect:/agents/index";
     }
-
 
 }

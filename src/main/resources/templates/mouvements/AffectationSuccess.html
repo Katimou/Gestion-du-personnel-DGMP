@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=0">
+  <link
+          href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap"
+          rel="stylesheet">
+  <link rel="stylesheet" type="text/css" th:href="@{/assets/css/SuccessSaveStyle.css}">
+</head>
+<body>
+<div class="carde">
+  <div style="border-radius: 200px; height:150px; width: 150x; background: #F8FAF5; margin: 0 auto;">
+    <i class="checkmark">✓</i>
+  </div>
+  <div th:if="${mouvement}">
+    <h1 th:text=" ${mouvement.mvtAgent.display()} + ' ' +  'affecté(e) avec succès!' ">> </h1>
+  </div>
+   <p th:text=" 'Nouvelle structure: ' + ${mouvement.mvtStructureDes.display()}"></p>
+  <div class="text-center">
+    <a th:href="@{/agents/goToConsult(idAgent=${mouvement.getMvtAgent().getAgtId()})}"><button class="soumettre" type="submit">Consulter</button> </a>
+  </div>
+</div>
+</body>
+</html>

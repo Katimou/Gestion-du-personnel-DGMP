@@ -30,7 +30,7 @@
 											<tbody>
 												<tr th:each="d:${demandes}" th:class="${@demandeController.getBootstrapClass(d)}">
 												<td th:text="${d.dmeDemandeur==null ? '' : d.dmeDemandeur.display()}">
-											    <td th:text="${d.dmeType.typNom}">
+											    <td th:text="${d.dmeType.getTypNom()}">
 												<td th:text="${d.dmeDate}">
 												 <td th:text="${d.dmeEtat}"/>
 													<td class="text-right" style="min-width: 98px;">

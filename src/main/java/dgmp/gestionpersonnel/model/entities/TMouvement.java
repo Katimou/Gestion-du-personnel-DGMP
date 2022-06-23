@@ -18,7 +18,9 @@ public class TMouvement{
 	@ManyToOne
 	private TStructure mvtStructureDes;
 	@ManyToOne
-	private TType  docType;
+	private TAgent mvtAgent;
+	@ManyToOne
+	private TType  mvtType;
 
 
 }

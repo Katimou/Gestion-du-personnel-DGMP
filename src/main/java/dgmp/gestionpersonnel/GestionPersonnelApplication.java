@@ -1,7 +1,5 @@
 package dgmp.gestionpersonnel;
 import java.io.File;
-import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.boot.CommandLineRunner;
@@ -10,14 +8,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import dgmp.gestionpersonnel.controller.repositories.TAgentRepository;
-import dgmp.gestionpersonnel.controller.repositories.TTypeRepository;
-import dgmp.gestionpersonnel.controller.repositories.TTypeStructureParamRepository;
+import dgmp.gestionpersonnel.controller.repositories.AgentRepository;
+import dgmp.gestionpersonnel.controller.repositories.TypeRepository;
+import dgmp.gestionpersonnel.controller.repositories.TypeStructureParamRepository;
 import dgmp.gestionpersonnel.controller.services.IStructureService;
 import dgmp.gestionpersonnel.controller.utilities.ArchivageConstants;
 import dgmp.gestionpersonnel.model.entities.TAgent;
 import dgmp.gestionpersonnel.model.entities.TType;
-import dgmp.gestionpersonnel.model.entities.TTypeStructureParam;
+
 @SpringBootApplication
 public class GestionPersonnelApplication {
 	public static void main(String[] args) {
@@ -25,8 +23,8 @@ public class GestionPersonnelApplication {
 	}
 	
 	@Bean
-	CommandLineRunner start(TAgentRepository agentRep, PasswordEncoder passwordEncoder,
-			TTypeRepository typeRep, TTypeStructureParamRepository tspRep, IStructureService strService)
+	CommandLineRunner start(AgentRepository agentRep, PasswordEncoder passwordEncoder,
+							TypeRepository typeRep, TypeStructureParamRepository tspRep, IStructureService strService)
 	{
 		
 		return (args)->

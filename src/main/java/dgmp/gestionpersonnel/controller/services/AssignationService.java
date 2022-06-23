@@ -9,16 +9,16 @@ import dgmp.gestionpersonnel.model.entities.TStructure;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
+
 
 @Service
 @RequiredArgsConstructor
 public class AssignationService implements IAssService {
-    final TAgentRepository agtRep;
-    final TStructureRepository strRep;
-    final TRoleRepository rleRep;
-    final TAssignationRepository assRep;
+    final AgentRepository agtRep;
+    final StructureRepository strRep;
+    final RoleRepository rleRep;
+    final AssignationRepository assRep;
     final StrParamRepository strParam;
     public void createAss(Long agtId, Long rleId, Long strId) {
         if(!agtRep.existsById(agtId)) throw new AppException("cet Agent n'existe pas avec cet Id");

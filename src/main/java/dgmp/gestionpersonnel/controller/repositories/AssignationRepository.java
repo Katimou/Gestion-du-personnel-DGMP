@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import dgmp.gestionpersonnel.model.entities.TAssignation;
 
-public interface TAssignationRepository extends JpaRepository<TAssignation, Long>
+public interface AssignationRepository extends JpaRepository<TAssignation, Long>
 {
 	List<TAssignation> findByAssAgentAgtUsername(String username);
 	

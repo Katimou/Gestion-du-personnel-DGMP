@@ -1,6 +1,5 @@
 package dgmp.gestionpersonnel.controller.web;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dgmp.gestionpersonnel.controller.repositories.TStructureRepository;
-import dgmp.gestionpersonnel.controller.repositories.TTypeRepository;
+import dgmp.gestionpersonnel.controller.repositories.StructureRepository;
+import dgmp.gestionpersonnel.controller.repositories.TypeRepository;
 import dgmp.gestionpersonnel.controller.services.IStructureService;
 import dgmp.gestionpersonnel.model.entities.TStructure;
 import dgmp.gestionpersonnel.model.entities.TType;
@@ -21,9 +20,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TypeRestController 
 {
-	private final TTypeRepository typeRep;
+	private final TypeRepository typeRep;
 	private final IStructureService structureService;
-	private final TStructureRepository strRep;
+	private final StructureRepository strRep;
 	@GetMapping(path = "/getSousTypeCompatiblesByStrId/{strId}")
 	public List<TType> getSousTypeCompatiblesByStrId(@PathVariable Long strId)
 	{
@@ -41,7 +40,7 @@ public class TypeRestController
 	@GetMapping(path = "/getAllStrFilles/{strId}")
 	public TStructure getAllStrFilles(@PathVariable Long strId)
 	{
-		return structureService.getStructureFilles(strId);
+		return structureService.getStrChildrenTree(strId);
 	}
 	
 }

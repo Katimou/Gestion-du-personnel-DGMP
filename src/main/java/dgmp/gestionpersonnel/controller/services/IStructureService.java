@@ -8,6 +8,8 @@ public interface IStructureService
 {
 	public TStructure createStructure(TStructure structure);
 	public TStructure updateStructure(Long strId, TStructure structure);
-	public TStructure getStructureFilles(Long strId);
+	public TStructure getStrChildrenTree(Long strId);
 	public List<TStructure> getAllStructureFilles(Long strId);
+
+
 }

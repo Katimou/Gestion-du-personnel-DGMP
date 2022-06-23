@@ -1,8 +1,8 @@
 package dgmp.gestionpersonnel.controller.services;
 
 import dgmp.gestionpersonnel.controller.repositories.StrParamRepository;
-import dgmp.gestionpersonnel.controller.repositories.TDemandeRepository;
-import dgmp.gestionpersonnel.controller.repositories.TTraitementRepository;
+import dgmp.gestionpersonnel.controller.repositories.DemandeRepository;
+import dgmp.gestionpersonnel.controller.repositories.TraitementRepository;
 import dgmp.gestionpersonnel.controller.validator.exception.AppException;
 import dgmp.gestionpersonnel.model.entities.TAgent;
 import dgmp.gestionpersonnel.model.entities.TDemande;
@@ -21,8 +21,8 @@ import java.time.LocalDateTime;
 @Service
 public class TraitementService implements ITraitementService
 {
-    private final TDemandeRepository dmeRep;
-    private final TTraitementRepository traiRep;
+    private final DemandeRepository dmeRep;
+    private final TraitementRepository traiRep;
     private final ISecurityContextService scs;
     private final StrParamRepository strParamRep;
 
@@ -33,6 +33,7 @@ public class TraitementService implements ITraitementService
         TDemande demande = dmeRep.findById(dmeId).orElseThrow(()->new AppException("Demande inexistante"));
         TAgent demandeur = demande.getDmeDemandeur();
         demande.setDmeEtat(EtatDemande.SOUMIS);
+        demande.setDmeLieuDepart(demande.getDmeLieuDepart());
         TTraitement traitement = new TTraitement();
         traitement.setTraiDemande(demande);
         traitement.setTraiDate(LocalDateTime.now());
@@ -43,7 +44,7 @@ public class TraitementService implements ITraitementService
         else strDestination = demandeur.isResponsable() ? demandeur.getAgtStructure().getStrTutelleDirecte(): demandeur.getAgtStructure();
         demande.setDmeDestination(strDestination);
         traitement.setTraiStrDestination(strDestination);
-        traitement.setTraiAgtDestination(strDestination.getStrRespo());
+//        traitement.setTraiAgtDestination(strDestination.getStrRespo());
         traiRep.save(traitement);
         dmeRep.save(demande);
     }
@@ -53,7 +54,7 @@ public class TraitementService implements ITraitementService
 
         TDemande demande = dmeRep.findById(dmeId).orElseThrow(()->new AppException("Demande inexistante"));
         int niveau = scs.getCurrentAss().getAssStruct().getStrNiveau();
-        TAgent traiteur = scs.getAuthUser().getAgent();
+        TAgent traiteur = scs.getAuthUser().getAgent().getAgtStructure().getStrRespo();
         demande.setDmeEtat(EtatDemande.EN_COURS_DE_TRAITEMENT);
         TTraitement traitement = new TTraitement();
         traitement.setTraiDemande(demande);

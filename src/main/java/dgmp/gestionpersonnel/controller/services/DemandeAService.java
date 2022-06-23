@@ -3,19 +3,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import dgmp.gestionpersonnel.controller.repositories.TypeRepository;
 import dgmp.gestionpersonnel.security.services.ISecurityContextService;
 import dgmp.gestionpersonnel.security.services.SecurityUser;
 import org.springframework.stereotype.Service;
 
-import dgmp.gestionpersonnel.controller.repositories.TDemandeRepository;
+import dgmp.gestionpersonnel.controller.repositories.DemandeRepository;
 import dgmp.gestionpersonnel.model.entities.TDemande;
 import dgmp.gestionpersonnel.model.enums.EtatDemande;
 import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class DemandeAService implements IDemandeAServices {
-	private final TDemandeRepository dmeRep;
+	private final DemandeRepository dmeRep;
 	private final ISecurityContextService scs;
+	private  final TypeRepository typeRep;
 
 	@Override
 	public TDemande saveDemande(TDemande demande) {
@@ -24,6 +26,7 @@ public class DemandeAService implements IDemandeAServices {
         String formatDateTime = now.format(formatter);
 		demande.setDmeDate(formatDateTime);
 		demande.setDmeEtat(EtatDemande.INITIE);
+		demande.setDmeType(typeRep.findByTypNom("DEMANDE_SORTIE_TERRITOIRE"));
 		SecurityUser securityUser = scs.getAuthUser();
 		demande.setDmeDemandeur(securityUser.getAgent());
 		return dmeRep.save(demande);

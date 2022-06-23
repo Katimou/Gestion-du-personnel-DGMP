@@ -1,14 +1,13 @@
 package dgmp.gestionpersonnel.controller.services;
 
 import dgmp.gestionpersonnel.controller.repositories.StrParamRepository;
-import dgmp.gestionpersonnel.controller.repositories.TAgentRepository;
-import dgmp.gestionpersonnel.controller.repositories.TRoleRepository;
-import dgmp.gestionpersonnel.controller.repositories.TStructureRepository;
+import dgmp.gestionpersonnel.controller.repositories.AgentRepository;
+import dgmp.gestionpersonnel.controller.repositories.RoleRepository;
+import dgmp.gestionpersonnel.controller.repositories.StructureRepository;
 import dgmp.gestionpersonnel.controller.utilities.ArchivageConstants;
 import dgmp.gestionpersonnel.controller.utilities.IFilesManager;
 import dgmp.gestionpersonnel.controller.validator.exception.AppException;
 import dgmp.gestionpersonnel.model.entities.TAgent;
-import dgmp.gestionpersonnel.model.entities.TAssignation;
 import dgmp.gestionpersonnel.model.entities.TRole;
 import dgmp.gestionpersonnel.model.entities.TStructure;
 import lombok.RequiredArgsConstructor;
@@ -21,18 +20,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Service("agtService")
 @RequiredArgsConstructor
 public class AgentServices implements IAgentServices
 {
 	private final PasswordEncoder encoder;
-	private final TAgentRepository agentRep;
+	private final AgentRepository agentRep;
 	private final IStructureService strService;
-	private final TStructureRepository strRep;
+	private final StructureRepository strRep;
 	private final IFilesManager filesManager;
 	private  final IAssService assService;
 	private  final StrParamRepository strParamRep;
-	private  final TRoleRepository rleRep;
+	private  final RoleRepository rleRep;
    @Override
 	@Transactional
 	public TAgent createAgent(TAgent agent)

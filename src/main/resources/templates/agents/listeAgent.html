@@ -36,9 +36,8 @@
 											<th style="min-width: 98px;">Situation M</th>
 											<th style="min-width: 50px;">Fonction</th>
 											<th style="min-width: 98px;">Grade</th>
-										<th style="min-width: 98px;">Service</th>
-											<th style="min-width: 98px;">Consulter</th>
-											<th class="text-right">Modifier/Supprimer</th>
+										    <th style="min-width: 98px;">Service</th>
+											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -55,6 +54,23 @@
 											<td th:text="${p.agtFonction}"></td>
 											<td th:text="${p.agtGrade}"></td>
 											<td th:text="${p.agtService}"></td>
+											<td>
+												<div class="dropdown">
+													<button class="btn btn-secondary dropdown-toggle" type="button"
+															id="dropdownMenuButton" data-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false">
+														Dropdown button
+													</button>
+													<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+														<a th:href="@{/agents/goToConsult(idAgent=${p.agtId})}" class="dropdown-item" href="#">Consulter</a>
+														<a th:href="@{/agents/gotoUpdateForm(id=${p.agtId})}"class="dropdown-item" href="#">Modifier</a>
+														<a th:href="@{/agents/delete(idAgent=${p.agtId})}" class="dropdown-item" href="#">Supprimer<a/>
+														<a th:href="@{/mouvements/GoToaffecter(idAgent=${p.agtId})}" class="dropdown-item" href="#">affecter/Muter</a>
+													</div>
+												</div>
+											</td>
+
+<!--
 											<td><a
 												th:href="@{/agents/goToConsult(idAgent=${p.agtId})}"
 												class="btn btn-success btn-sm mb-1 colore"> <i
@@ -70,7 +86,7 @@
 												class="btn btn-danger btn-sm mb-1 action"> <i
 													class="fa fa-trash" aria-hidden="true"></i>
 											</a>
-											</td>
+											</td>-->
 									</tbody>
 								</table>
 							</div>

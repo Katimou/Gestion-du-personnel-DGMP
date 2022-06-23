@@ -48,7 +48,9 @@
     <script type="text/javascript" th:src="@{/assets/js/jquery.fullcalendar.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/chart.js}"></script>
     <script type="text/javascript" th:src="@{/assets/js/popup.js}"></script>
-    
+        <div layout:fragment="specific-js-dependancies">
+
+        </div>
   <script type="text/javascript">
                     $("#tutelle").change(function(e)
                     {
@@ -62,7 +64,8 @@
                             })
                         }});
                     });
-                </script> 
+  </script>
+
 </body>
 
 </html>

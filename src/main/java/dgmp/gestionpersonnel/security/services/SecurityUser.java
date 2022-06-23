@@ -9,7 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import dgmp.gestionpersonnel.SpringContext;
-import dgmp.gestionpersonnel.controller.repositories.TAssignationRepository;
+import dgmp.gestionpersonnel.controller.repositories.AssignationRepository;
 import dgmp.gestionpersonnel.model.entities.TAgent;
 import dgmp.gestionpersonnel.model.entities.TAssignation;
 import lombok.Data;
@@ -19,7 +19,7 @@ public class SecurityUser implements UserDetails
 {
 	private TAgent agent;
 	
-	private TAssignationRepository assRep = SpringContext.getBean(TAssignationRepository.class);
+	private AssignationRepository assRep = SpringContext.getBean(AssignationRepository.class);
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() 
 	{

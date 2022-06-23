@@ -5,11 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import dgmp.gestionpersonnel.controller.repositories.StrParamRepository;
 import org.springframework.stereotype.Service;
 
-import dgmp.gestionpersonnel.controller.repositories.TAgentRepository;
-import dgmp.gestionpersonnel.controller.repositories.TStructureRepository;
+import dgmp.gestionpersonnel.controller.repositories.AgentRepository;
+import dgmp.gestionpersonnel.controller.repositories.StructureRepository;
 import dgmp.gestionpersonnel.controller.validator.exception.AppException;
 import dgmp.gestionpersonnel.model.entities.TStructure;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +17,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StructureService implements IStructureService 
 {
-	private final TStructureRepository strRep;
-	private final TAgentRepository agentRep;
+	private final StructureRepository strRep;
+	private final AgentRepository agentRep;
 	@Override
 	public TStructure createStructure(TStructure structure) {
 		TStructure tutelleDIrecte = structure.getStrTutelleDirecte();
@@ -38,19 +37,19 @@ public class StructureService implements IStructureService
 	}
 
 	@Override
-	public TStructure getStructureFilles(Long strId) 
+	public TStructure getStrChildrenTree(Long strId)
 	{
 		TStructure str = strRep.findById(strId).orElse(null);
 		if(str==null) return null;
 		List<TStructure> strFilles = strRep.findByStrTutelleDirecte_StrId(strId);
 		str.setStrStructuresFilles(strFilles);
-		strFilles.forEach(sf->getStructureFilles(sf.getStrId()));
+		strFilles.forEach(sf-> getStrChildrenTree(sf.getStrId()));
 		return str;
 	}
 	
 	
 	@Override
-	public List<TStructure> getAllStructureFilles(Long strId) 
+	public List<TStructure> getAllStructureFilles(Long strId)
 	{
 		TStructure str = strRep.findById(strId).orElse(null);
 		if(str==null) return Collections.emptyList();
@@ -59,9 +58,12 @@ public class StructureService implements IStructureService
 	
 	private Stream<TStructure> getAllStructuresFillesAsStream(Long strId)
 	{
-		TStructure str = getStructureFilles(strId);
+		TStructure str = getStrChildrenTree(strId);
 		if(str==null) return null;
 		Stream<TStructure> structures = Stream.concat(Stream.of(str), str.getStrStructuresFilles().stream().flatMap(sf->getAllStructuresFillesAsStream(sf.getStrId())));
 		return structures;
 	}
+
+
+
 }

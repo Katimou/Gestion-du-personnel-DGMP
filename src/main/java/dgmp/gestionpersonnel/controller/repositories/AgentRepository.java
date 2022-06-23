@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import dgmp.gestionpersonnel.model.entities.TAgent;
 import dgmp.gestionpersonnel.model.entities.TStructure;
 
-public interface TAgentRepository extends JpaRepository<TAgent, Long>
+public interface AgentRepository extends JpaRepository<TAgent, Long>
 {
 	public List<TAgent> findByAgtFonction(String fonction);
 	public Optional<TAgent> findByAgtUsername(String username);

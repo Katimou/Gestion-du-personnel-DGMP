@@ -1,6 +1,8 @@
 package dgmp.gestionpersonnel.security.services;
 
-import dgmp.gestionpersonnel.controller.repositories.TAssignationRepository;
+import dgmp.gestionpersonnel.controller.repositories.AssignationRepository;
+import dgmp.gestionpersonnel.controller.repositories.DemandeRepository;
+import dgmp.gestionpersonnel.controller.repositories.StructureRepository;
 import dgmp.gestionpersonnel.model.entities.TAssignation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,7 +20,9 @@ import java.util.stream.Collectors;
 public class SecurityContextService implements ISecurityContextService
 {
     private final UserDetailsService userDetailsService;
-    private final TAssignationRepository assRep;
+    private final AssignationRepository assRep;
+    private  final DemandeRepository dmeRep;
+    private  final StructureRepository StrRep;
     @Override
     public String getAuthUsername()
     {

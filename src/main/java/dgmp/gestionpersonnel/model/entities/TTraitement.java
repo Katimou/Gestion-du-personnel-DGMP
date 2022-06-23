@@ -21,6 +21,10 @@ public class TTraitement
 	@ManyToOne
 	private TDemande traiDemande;
 	private boolean traiStatutDem;
+	public TTraitement(TAgent traiAgtTraiteur) {
+		this.traiAgtTraiteur = traiAgtTraiteur;
+	}
+
 }
 
 

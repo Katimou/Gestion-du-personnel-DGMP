@@ -1,5 +1,5 @@
 package dgmp.gestionpersonnel.controller.repositories;
 
-public class TDocumentAdminRepository {
+public class FonctionRepository {
 
 }

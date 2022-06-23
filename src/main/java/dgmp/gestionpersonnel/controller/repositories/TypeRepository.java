@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import dgmp.gestionpersonnel.model.entities.TType;
 
-public interface TTypeRepository extends JpaRepository<TType,Long>
+public interface TypeRepository extends JpaRepository<TType,Long>
 {
 	List<TType> findByTypCode(String typCode);
 	@Query("Select ts from TType ts Where ts.typCode='TYP_STR'")

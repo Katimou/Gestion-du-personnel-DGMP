@@ -1,33 +1,18 @@
 package dgmp.gestionpersonnel.controller.web;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
-import dgmp.gestionpersonnel.controller.repositories.TAssignationRepository;
-import dgmp.gestionpersonnel.model.entities.TAssignation;
+import dgmp.gestionpersonnel.controller.repositories.AssignationRepository;
+import dgmp.gestionpersonnel.controller.services.IMouvementService;
 import dgmp.gestionpersonnel.security.services.ISecurityContextService;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.loadtime.Agent;
-import org.primefaces.shaded.commons.io.FilenameUtils;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,10 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import dgmp.gestionpersonnel.controller.repositories.TAgentRepository;
+import dgmp.gestionpersonnel.controller.repositories.AgentRepository;
 import dgmp.gestionpersonnel.controller.services.IAgentServices;
-import dgmp.gestionpersonnel.controller.utilities.ArchivageConstants;
-import dgmp.gestionpersonnel.controller.utilities.FilesManager;
 import dgmp.gestionpersonnel.controller.utilities.IFilesManager;
 import dgmp.gestionpersonnel.model.entities.TAgent;
 import lombok.RequiredArgsConstructor;
@@ -51,11 +34,12 @@ import lombok.RequiredArgsConstructor;
 public class AgentController {
 
 //	private final AgentController agentService;
-	private final TAgentRepository agentRep;
+	private final AgentRepository agentRep;
 	private final IFilesManager filesManager;
 	private final IAgentServices agentServices;
 	private final ISecurityContextService scs;
-	private final TAssignationRepository assRep;
+	private final AssignationRepository assRep;
+	private final IMouvementService mvtService;
 
 	/*
 	 * @GetMapping(path="/index") public String goToIndex(Model model) {
@@ -83,7 +67,7 @@ public class AgentController {
 	@GetMapping(path = "/logout")
 	public String logout(HttpServletRequest request) throws ServletException {
 		request.logout();
-		return "redirect:/login";
+		return "redirect:/agents/login";
 	}
 
 	@GetMapping(path = "/GoToaddAgent")

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+</head>
 <body>
     <div class="main-wrapper">
         <div class="header" th:fragment="header"> <!-- Header start -->
             <div class="header-left">
                 <a th:href="@{/agents/index}" class="logo">
-                    <img th:src="@{/assets/img/logo_dgmp.png}" width="183" height="83" alt="">
+             <img th:src="@{/assets/img/logo_dgmp.png}"  width="150" height="60" alt="">
                 </a>
             </div>
             <div class="page-title-box float-left">
@@ -14,66 +17,24 @@
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars" aria-hidden="true"></i></a>
             <ul class="nav user-menu float-right">
                 <li class="nav-item dropdown d-none d-sm-block">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell"></i> <span class="badge badge-pill bg-primary float-right">3</span></a>
+                    <a th:href="@{/demandes/detailDemandes}"  class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell"></i> <span class="badge badge-pill bg-primary float-right" th:text="${@dmeRep.countByDmeDestination_StrId(@scs.getCurrentAss().getAssStruct().getStrId())}">5</span></a>
                     <div class="dropdown-menu notifications">
                         <div class="topnav-dropdown-header">
-                            <span>Notifications</span>
                         </div>
                         <div class="drop-scroll">
-                            <ul class="notification-list">
+                            <span >Notifications</span>
+                            <ul class="notification-list" th:each="detail:${@dmeRep.getListDmeSentToStrDer(@scs.getCurrentAss().getAssStruct().getStrId())}">
                                 <li class="notification-message">
-                                    <a href="activities.html">
+                                    <a th:href="@{/demandes/DemandeAdressees}">
                                         <div class="media">
-											<span class="avatar">
-												<img alt="John Doe" th:src="@{/assets/img/user.jpg}" class="img-fluid rounded-circle">
-											</span>
+											<span class="avatar" th:text="${detail.dmeDemandeur.getAgtNom().charAt(0)}"></span>
 											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">John Doe</span> is now following you </p>
-												<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">T</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Tarah Shropshire</span> sent you a message.</p>
-												<p class="noti-time"><span class="notification-time">6 mins ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">L</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Misty Tison</span> like your photo.</p>
-												<p class="noti-time"><span class="notification-time">8 mins ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">G</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Rolland Webber</span> booking appoinment for meeting.</p>
-												<p class="noti-time"><span class="notification-time">12 mins ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">T</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Bernardo Galaviz</span> like your photo.</p>
-												<p class="noti-time"><span class="notification-time">2 days ago</span></p>
+												<p class="noti-details"><span class="noti-title" th:text="${detail.dmeDemandeur.display()}" ></span> sent you</p>
+                                                <p class="noti-details"><span class="noti-title" th:text="${detail.dmeType.typNom}" ></span> sent you</p>
+												<p class="noti-time"><span class="notification-time" th:text="${detail.getDmeDate()}"></span></p>
+<!--                                                <div th:if="${detail.traitement.getTraiAgtTraiteur()}">-->
+<!--                                                    <p class="noti-time"><span class="notification-time" th:text=" 'demande visée par: ' + ${detail.traitement.getTraiAgtTraiteur().display()}"></span></p>-->
+<!--                                                </div>-->
 											</div>
                                         </div>
                                     </a>
@@ -85,14 +46,11 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item dropdown d-none d-sm-block">
-                    <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment"></i> <span class="badge badge-pill bg-primary float-right">8</span></a>
-                </li>
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
-                        <span class="user-img"><img class="rounded-circle" th:src="@{'/agents/displayPhoto/'+${@scs.getAuthUser().getAgent().getAgtId()} }" width="40" alt="Admin">
+                        <span class="user-img">
 							<span class="status online"></span></span>
-                        <span th:text="${@scs.getAuthUsername()}"></span>
+                        <span th:text="'Agent ' + ${@scs.getAuthUsername()}"  ></span>
                     </a>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="profile.html">My Profile</a>
@@ -108,7 +66,7 @@
                     <a class="dropdown-item" href="profile.html">My Profile</a>
                     <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
                     <a class="dropdown-item" href="/agents/gotoChangeAss">Changer de profile</a>
-                    <a class="dropdown-item" href="login.html">Logout</a>
+                    <a class="dropdown-item" href="/agents/logout">Logout</a>
                 </div>
             </div>
         </div>

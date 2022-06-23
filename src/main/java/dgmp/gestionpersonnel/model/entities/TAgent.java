@@ -57,6 +57,10 @@ public class TAgent {
 	private String agtFonction;
 	private String agtUsername;
 	private String agtPasswword;
+	@ManyToOne
+	private TType agtTypeMvt;
+	@ManyToOne
+	private TStructure structureAffecte;
 	@Transient
 	private String agtRePasswword;
 	private boolean agtActive;
@@ -72,8 +76,7 @@ public class TAgent {
 
     public String display()
 	{
-		System.out.println(String.format("Affichage agent id=%d %s %s (%s)", agtId, agtNom, agtPrenom, agtMatricule));
-		return String.format("%s %s (%s)", agtNom, agtPrenom, agtMatricule);
+		return agtMatricule == null ? String.format("%s %s", agtNom, agtPrenom) :String.format("%s %s (%s)", agtNom, agtPrenom, agtMatricule);
 	}
 
 	public boolean isResponsable()

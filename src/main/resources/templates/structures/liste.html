@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout}">
+
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="row mt-2">
+		<div class="col-lg-12">
+			<div class="content-page">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+						<div class="table-responsive">
+							<table class="table table-striped custom-table">
+								<thead class="thead-light">
+								<tr>
+									<th style="min-width: 50px;">Structure</th>
+									<th style="min-width: 50px;"> Responsable</th>
+									<th style="min-width: 74px;">Situation Géographique</th>
+									<th style="min-width: 74px;">Plus d'infos</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr th:each="d:${direction}">
+									<td th:text="${d.display()}">
+									<td th:text="${d.getStrRespo().display()}"></td>
+									<td th:text="${d.getStrSiteGeo()}"></td>
+									<td>
+										<a th:href="@{/structures/plusInfos(strId=${d.strId})}"><button class="btn btn-secondary" type="button"> Plus
+										</button></a>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+
+</html>
