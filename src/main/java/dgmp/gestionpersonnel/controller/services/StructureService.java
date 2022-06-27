@@ -13,7 +13,7 @@ import dgmp.gestionpersonnel.controller.validator.exception.AppException;
 import dgmp.gestionpersonnel.model.entities.TStructure;
 import lombok.RequiredArgsConstructor;
 
-@Service
+@Service("StrService")
 @RequiredArgsConstructor
 public class StructureService implements IStructureService 
 {

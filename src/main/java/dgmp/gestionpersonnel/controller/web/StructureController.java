@@ -14,7 +14,7 @@ import dgmp.gestionpersonnel.model.entities.TStructure;
 import dgmp.gestionpersonnel.model.entities.TType;
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@Controller("structure_controller")
 @RequiredArgsConstructor
 @RequestMapping("/structures")
 public class StructureController 

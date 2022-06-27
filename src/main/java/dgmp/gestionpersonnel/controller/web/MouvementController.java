@@ -28,8 +28,7 @@ public class MouvementController {
     public  final MouvementRepository mvtRep;
 
 
-
-    @GetMapping(path = "/GoToaffecter")
+   @GetMapping(path = "/GoToaffecter")
     public String GoToaffecter(@RequestParam(name = "idAgent", defaultValue = "") Long id, Model model) {
         TAgent agtAffecte= agtRep.findById(id).orElse(null);
         List<TStructure> structures= strRep.findAll();
@@ -38,6 +37,11 @@ public class MouvementController {
         mvt.setMvtStructureOrigine(agtAffecte.getAgtStructure());
         model.addAttribute("mvt",mvt);
         model.addAttribute("structures",structures);
+        return "agents/affecter";
+    }
+    @GetMapping(path = "/AffectationForm")
+    public String AffectationForm(@RequestParam(name = "idAgent", defaultValue = "") Long id, Model model) {
+
         return "agents/affecter";
     }
 

@@ -12,14 +12,20 @@
 				<div class="content-page">
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-12">
-							<div class="page-title mb-2">
-								<form method="get" th:action="@{/agents/search}">
-									<div class="form-group">
-										<input type="text" name="keyword" id="id"
-											th:value="${keyword}">
-										<button type="submit" class="btn btn-primary">chercher</button>
-									</div>
-								</form>
+							<div class="page-title mb-2 row">
+								<div class="col-sm-10">
+									<form method="get" th:action="@{/agents/search}">
+										<div class="form-group">
+											<input type="text" name="keyword" id="id"
+												   th:value="${keyword}">
+											<button type="submit" class="btn btn-primary">chercher</button>
+										</div>
+									</form>
+								</div>
+								<div class="col-sm-2 print">
+									<button type="button" class="btn btn-primary"><i class="fa fa-print iprint" aria-hidden="true"></i>
+									</button>
+								</div>
 							</div>
 							<div class="table-responsive">
 								<table class="table table-striped custom-table">

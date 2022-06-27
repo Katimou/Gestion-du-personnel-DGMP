@@ -9,37 +9,122 @@
 <div layout:fragment="content">
       <h3>Sous-direction et Services associés</h3>
     <table class="table">
-        <thead class="thead-light">
-            <th scope="col">
-             <a  data-toggle="modal" data-target="#exampleModal">lISTE DU PERSONNEL</a>
-            </th>
-        </thead>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="modal"  style="cursor: pointer"data-target="#exampleModal">Personnel de la Direction</button>
+                </h5>
+            </div>
+        </div>
     </table>
   <div th:each="S:${sousTutelleDirecte}">
     <div id="accordion">
         <div class="card">
             <div class="card-header" th:id="'headingOne_'+${S.strId}">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" th:data-target="'#collapseOne_'+${S.strId}" aria-expanded="true" th:aria-controls="'collapseOne_'+${S.strId}"  th:text="${S.display()}">
-                    </button>
+                    <button class="btn btn-link" data-toggle="collapse" th:data-target="'#collapseOne_'+${S.strId}" aria-expanded="true" th:aria-controls="'collapseOne_'+${S.strId}"  th:text="'Les services de la '+ ' '+ ${S.display()}"></button>
                 </h5>
             </div>
-
+<!--            modal pour la sous direction-->
+            <div class="modal fade" th:id="'SD'+${S.strId}" tabindex="-1" role="dialog" th:aria-labelledby="'SD'+${S.strId}" aria-hidden="true">
+                <div class="modal-dialog modal-xl">...</div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title" th:id="'SD'+${S.strId}" th:text="'personnel de la '+ ' ' +${S.display()}"></h2>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped custom-table">
+                                <thead>
+                                <tr>
+                                    <th style="min-width:50px;">Nom</th>
+                                    <th style="min-width:74px;">Prenom</th>
+                                    <th style="min-width:50px;">Tel</th>
+                                    <th style="min-width:98px;">Adresse</th>
+                                    <th style="min-width:90px;">Service</th>
+                                </tr>
+                                </thead>
+                                <tbody th:each="str:${@StrService.getAllStructureFilles(S.getStrId())}">
+                                <tr th:each="agt:${str.getStrAgents()}">
+                                    <td>
+                                        <h2><a href="profile.html" class="avatar text-white" th:text="${agt.agtNom.charAt(0)}"></a></h2>
+                                        <h2><a href="profile.html" th:text="${agt.agtNom}"><span></span></a></h2>
+                                    </td>
+                                    <td th:text="${agt.agtPrenom}">1</td>
+                                    <td th:text="${agt.agtTel}">1</td>
+                                    <td th:text="${agt.agtAdresse}">1</td>
+                                    <td th:text="${agt.agtStructure.display()}">1</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+            <!--               modal pour le service-->
             <div th:id="'collapseOne_'+${S.strId}" class="collapse show" th:aria-labelledby="'headingOne_'+${S.strId}" data-parent="#accordion">
                  <div th:each="ST:${S.getStrStructuresFilles()}">
-                     <div class="card-body" th:text="${ST.display()}">
-                 </div>
-
+                     <a  data-toggle="modal"  style="cursor: pointer" th:data-target="'#service'+${ST.strId}"><div class="card-body" th:text="${ST.display()}"> </div></a>
+                     <div class="modal fade" th:id="'service'+${ST.strId}" tabindex="-1" role="dialog" th:aria-labelledby="'exampleModalLabel'+${ST.strId}" aria-hidden="true">
+                         <div class="modal-dialog modal-xl">...</div>
+                         <div class="modal-content">
+                             <div class="modal-header">
+                                 <h2 class="modal-title" th:id="'exampleModalLabel'+${ST.strId}" th:text="'personnel du'+ ' ' +${ST.display()}"></h2>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                 </button>
+                             </div>
+                             <div class="modal-body">
+                                 <div class="table-responsive">
+                                     <table class="table table-striped custom-table">
+                                         <thead>
+                                         <tr>
+                                             <th style="min-width:50px;">Nom</th>
+                                             <th style="min-width:74px;">Prenom</th>
+                                             <th style="min-width:50px;">Tel</th>
+                                             <th style="min-width:98px;">Adresse</th>
+                                             <th style="min-width:90px;">Service</th>
+                                         </tr>
+                                         </thead>
+                                         <tbody>
+                                         <tr th:each="agt:${ST.getStrAgents()}">
+                                             <td>
+                                                 <h2><a href="profile.html" class="avatar text-white" th:text="${agt.agtNom.charAt(0)}"></a></h2>
+                                                 <h2><a href="profile.html" th:text="${agt.agtNom}"><span></span></a></h2>
+                                             </td>
+                                             <td th:text="${agt.agtPrenom}">1</td>
+                                             <td th:text="${agt.agtTel}">1</td>
+                                             <td th:text="${agt.agtAdresse}">1</td>
+                                             <td th:text="${agt.agtStructure.display()}">1</td>
+                                         </tr>
+                                         </tbody>
+                                     </table>
+                                 </div>
+                             </div>
+                             <div class="modal-footer">
+                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                 <button type="button" class="btn btn-primary">Save changes</button>
+                             </div>
+                         </div>
+                     </div>
                 </div>
             </div>
         </div>
     </div>
-      <!-- Modal -->
+
+      <!-- Modal pour la direction-->
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-              <div class="modal-content">
+          <div class="modal-dialog modal-xl">...</div>
+          <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel" th:text="'liste du personnel de la ' + ${strMere.display()}"></h5>
+                      <h2 class="modal-title" id="exampleModalLabel" th:text="'liste du personnel de la ' + ${strMere.display()}"></h2>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -51,7 +136,6 @@
                               <tr>
                                   <th style="min-width:50px;">Nom</th>
                                   <th style="min-width:74px;">Prenom</th>
-                                  <th style="min-width:50px;">Matricule</th>
                                   <th style="min-width:50px;">Tel</th>
                                   <th style="min-width:98px;">Adresse</th>
                                   <th style="min-width:90px;">Service</th>
@@ -61,10 +145,9 @@
                               <tr th:each="agt:${allAgtByStrId}">
                                   <td>
                                       <h2><a href="profile.html" class="avatar text-white" th:text="${agt.agtNom.charAt(0)}"></a></h2>
-                                      <h2><a href="profile.html"><span th:text="${agt.agtNom}"></span></a></h2>
+                                      <h2><a href="profile.html" th:text="${agt.agtNom}"><span></span></a></h2>
                                   </td>
                                   <td th:text="${agt.agtPrenom}">1</td>
-                                  <td th:text="${agt.agtMatricule}">1</td>
                                   <td th:text="${agt.agtTel}">1</td>
                                   <td th:text="${agt.agtAdresse}">1</td>
                                   <td th:text="${agt.agtStructure.display()}">1</td>
@@ -82,6 +165,5 @@
       </div>
   </div>
   </div>
-</div>
 </body>
 </html>

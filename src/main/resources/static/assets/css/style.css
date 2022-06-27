@@ -684,6 +684,8 @@ table.dataTable tbody td.patient-img { padding: 2px;}
 .action-label > a {display: inline-block;min-width: 103px;}
 .action-label > a:focus,.action-label > a:hover,.action-label > a:active {color:#fff;}
 .action-label .btn-sm {padding: 5px;}
+.print{margin-top: 15px!important;}
+.iprint{font-size:25px!important;}
 
 /*------------------------------------------------------------------
 [17. Edit Profile]
@@ -736,7 +738,7 @@ table.dataTable tbody td.patient-img { padding: 2px;}
 .chat-left .chat-avatar{float:left}
 .chat-left .chat-body{margin-right:0;margin-left:30px;padding-right: 20px;}
 .chat-left .chat-content {background-color: #fff;border: 1px solid #eaeaea;color: #888;float: left;position:relative;padding:8px 15px;border-radius:2px 20px 20px 2px;max-width: 60%;}
-.avatar {background-color: #8944d7;border-radius: 50%;color: #fff;display: inline-block;font-weight: 500;height: 38px;line-height: 38px;margin: 0 10px 0 0;overflow: hidden;text-align: center;text-decoration: none;text-transform: uppercase;vertical-align: middle;width: 38px;position:relative;white-space:nowrap;float: left;}
+.avatar {background-color: #ff9b44;border-radius: 50%;color: #fff;display: inline-block;font-weight: 500;height: 38px;line-height: 38px;margin: 0 10px 0 0;overflow: hidden;text-align: center;text-decoration: none;text-transform: uppercase;vertical-align: middle;width: 38px;position:relative;white-space:nowrap;float: left;}
 .avatar:hover {color:#fff;}
 .avatar > img {width: 100%;display:block;}
 .chat.chat-left .chat-bubble:first-child .chat-content {border-top-left-radius: 20px;margin-top: 0;}
