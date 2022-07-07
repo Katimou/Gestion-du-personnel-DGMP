@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import dgmp.gestionpersonnel.model.entities.TType;
+import org.springframework.stereotype.Repository;
 
+@Repository("typRep")
 public interface TypeRepository extends JpaRepository<TType,Long>
 {
 	List<TType> findByTypCode(String typCode);
@@ -24,4 +26,6 @@ public interface TypeRepository extends JpaRepository<TType,Long>
 
 	@Query("select (count (tsp) > 0 ) from TTypeStructureParam tsp where tsp.tspTypeParent.typNom = ?1 and tsp.tspSousType.typNom = ?2")
 	boolean isSousType(String typNom, String sousTypeNom);
+
+
 }

@@ -60,7 +60,9 @@
                         <div class="form-group row">
                             <label class="col-form-label col-md-2">Type de demande</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" placeholder="DEMANDE_SORTIE_TERRITOIRE" readonly/>
+                                <select required="required" class="form-control" th:field="*{dmeType.typId}" id="strType">
+                                    <option th:value="${typeDmdeAbs.typId}" th:text="${typeDmdeAbs.getTypNom()}">Choix du type</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12">

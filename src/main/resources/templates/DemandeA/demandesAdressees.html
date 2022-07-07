@@ -39,7 +39,12 @@
                                                     Actions
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" th:if="${@scs.getCurrentAss().getAssStruct().getStrSigle()=='SRHMG'}">
-                                                    <div ><a class="dropdown-item" th:href="@{'/demandes/soumissionNiveauSup?dmeId=' + ${d.dmeId}}">Soumettre à la signature </a> </div>
+                                                    <div  th:if="${@typRep.isSousType('DEMANDE_ACTES',d.dmeType.getTypNom())}">
+                                                        <a class="dropdown-item" th:href="@{'/demandes/soumissionNiveauSup?dmeId=' + ${d.dmeId}}">Editer demande</a>
+                                                    </div>
+                                                    <div  th:if="${!@typRep.isSousType('DEMANDE_ACTES',d.dmeType.getTypNom())}">
+                                                        <a class="dropdown-item" th:href="@{'/demandes/editer?dmeId=' + ${d.dmeId}}">Editer demande</a>
+                                                    </div>
                                                 </div>
                                                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                                                     <div ><button type="button" data-toggle="modal" th:data-target="'#dme_visa_'+${d.dmeId}" class="dropdown-item" >Viser</button> </div>
@@ -111,7 +116,6 @@
                                                 </div>
                                             </div>
                                         </form>
-
                                         <form method="post" th:action="@{/demandes/soumissionNiveauSup}">
                                             <div class="modal fade" th:id="'dme_refus_'+${d.dmeId}" tabindex="-1"
                                                  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -149,8 +153,6 @@
                                                                 </tr>
                                                                 </tbody>
                                                             </table>
-
-
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"

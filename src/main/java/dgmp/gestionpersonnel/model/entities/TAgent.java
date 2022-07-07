@@ -1,4 +1,5 @@
 package dgmp.gestionpersonnel.model.entities;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -66,6 +67,7 @@ public class TAgent {
 	private boolean agtActive;
 	private String agtNationnalite;
 	private String agtService;
+	private String agtFixeNumber;
 	private String agtPhotoPath;
 	@Transient
 	private MultipartFile agtPhotoFile;

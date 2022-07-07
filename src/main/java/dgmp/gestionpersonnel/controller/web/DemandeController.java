@@ -46,11 +46,23 @@ public class DemandeController
 		return "DemandeA/sortieDuTerritoire";
 	}
 
+	@GetMapping(path = "/FormDemandeDoc")
+	public String GoToFormDemandeDoc(Model model) {
+		List<TType> typeDmdeDocs=typeRep.findSousType(typeRep.findByTypNom("DEMANDE_ACTES").getTypId());
+		model.addAttribute("typeDmdeDocs", typeDmdeDocs);
+		model.addAttribute("demande", new TDemande());
+		return "DemandeA/dmeDocForm";
+	}
 	@PostMapping(path = "/save")
     public String saveDemandeA(@ModelAttribute TDemande demande, Model model) {
 	  	TDemande dme = demandeAServices.saveDemande(demande);
 	  return "redirect:/demandes/GoToDmeWorkflow?DmeId";
 }
+	@PostMapping(path = "/saveDmeDocs")
+	public String saveDmeDocs(@ModelAttribute TDemande demande, Model model) {
+		TDemande dme = demandeAServices.saveDemande(demande);
+		return "redirect:/demandes/GoToDmeWorkflow?DmeId";
+	}
 	@PostMapping(path = "/saveDemandeSortie")
 	public String saveSortie(@ModelAttribute TDemande demande, Model model) {
 		TDemande dme = demandeAServices.saveDemande(demande);
@@ -97,13 +109,11 @@ public class DemandeController
 	@PreAuthorize("hasAnyAuthority('RH', 'RESPONSABLE', 'SECRETAIRE')")
 	public String traiteur(Model model) {
 		List<TDemande> demandes= dmeRep.getListDmeSentToStrDer(scs.getCurrentAss().getAssStruct().getStrId()) ;
-		demandes.forEach(d->{d.setTraitements(traiRep.findByDemande(d.getDmeId()));});
 		model.addAttribute("demandes",demandes);
-		demandes.forEach(System.out::println);
-
 		return "DemandeA/demandesAdressees";
 	}
 	@PostMapping(path = "/soumissionNiveauSup")
+	@PreAuthorize("hasAnyAuthority('RH', 'RESPONSABLE', 'SECRETAIRE')")
 	public String soumissionNiveauSup(Model model, @RequestParam(defaultValue = "0") long dmeId) {
 		TDemande demande = dmeRep.findById(dmeId).orElseThrow(()->new AppException("Demande inxistante"));
 		if(typeRep.isSousType("DEMANDE_ABSENCE", demande.getDmeType().getTypNom())) {
@@ -115,6 +125,11 @@ public class DemandeController
 		model.addAttribute("demandes",demandes);
 		demandes.forEach(System.out::println);
 
+		return "redirect:/demandes/DemandeAdressees";
+	}
+	@GetMapping(path = "/editer")
+	public String editerDemande(@RequestParam(defaultValue = "0") long dmeId) {
+		TDemande dme = demandeAServices.etiderAbsence(dmeId);
 		return "redirect:/demandes/DemandeAdressees";
 	}
 	public String getBootstrapClass(TDemande dme)
@@ -129,4 +144,19 @@ public class DemandeController
 			default: return "";
 		}
 	}
+
+	public String getStyleCSS(TDemande dme)
+	{
+		switch (dme.getDmeEtat())
+		{
+			case SOUMIS: return "soumission";
+			case EN_COURS_DE_TRAITEMENT: return "traitement";
+			case REFUSE: return "refuser";
+			case VALIDE: return "valider";
+			default: return "";
+		}
+	}
+
+
+
 }

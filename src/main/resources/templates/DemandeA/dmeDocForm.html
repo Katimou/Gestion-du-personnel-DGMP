@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout}">
+
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="content container-fluid">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+                    <h5 class="text-uppercase">Demande de documents administratifs</h5>
+                </div>
+                <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                    <ul class="list-inline breadcrumb float-right">
+                        <li class="list-inline-item"><a href="#">Home</a></li>
+                        <li class="list-inline-item"><a href="#">Forms</a></li>
+                        <li class="list-inline-item">Basic Inputs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card-box">
+                    <form method="post" th:action="@{/demandes/saveDmeDocs}" th:object="${demande}">
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Matricule</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" th:field="*{dmeDemandeur.agtMatricule}"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Type Absence</label>
+                            <div class="col-md-10">
+                                <select required="required" class="form-control" th:field="*{dmeType.typId}" id="strType">
+                                    <option value="0">Choix du type</option>
+                                    <option th:each="DmeDocs:${typeDmdeDocs}" th:value="${DmeDocs.typId}" th:text="${DmeDocs.getTypNom()}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="form-group text-center">
+                                <button class="btn btn-primary mr-2 soumettre" type="submit">Soumettre</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

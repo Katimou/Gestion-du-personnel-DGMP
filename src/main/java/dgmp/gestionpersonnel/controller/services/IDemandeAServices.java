@@ -6,4 +6,5 @@ import dgmp.gestionpersonnel.model.entities.TDemande;
 public interface IDemandeAServices {
 	TDemande saveDemande(TDemande demande);
 	List<TDemande> findDemande();
+	TDemande etiderAbsence(Long dmeId);
 }

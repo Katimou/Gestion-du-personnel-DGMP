@@ -40,18 +40,33 @@ public class TraitementService implements ITraitementService
         traitement.setTraiStatutDem(true);
         traitement.setTraiAgtTraiteur(scs.getAuthUser().getAgent());
         TStructure strDestination;
-        if(demandeur.getAgtStructure().getStrNiveau()<=2 ) strDestination = strParamRep.findStructureRH().getStructure();
-        else strDestination = demandeur.isResponsable() ? demandeur.getAgtStructure().getStrTutelleDirecte(): demandeur.getAgtStructure();
+        if(demandeur.getAgtStructure().getStrNiveau()<=2 ) strDestination = demandeur.isResponsable() ? strParamRep.findStructureRH().getStructure():demandeur.getAgtStructure();
+        else strDestination = demandeur.isResponsable() ?demandeur.getAgtStructure().getStrTutelleDirecte():demandeur.getAgtStructure();
         demande.setDmeDestination(strDestination);
         traitement.setTraiStrDestination(strDestination);
-//        traitement.setTraiAgtDestination(strDestination.getStrRespo());
         traiRep.save(traitement);
         dmeRep.save(demande);
     }
 
     @Override
-    public void viserDemandeAbsence(Long dmeId, boolean accepte, String motif) {
-
+    public void soumettreDemandeAct(Long dmeId) {
+        TDemande demande = dmeRep.findById(dmeId).orElseThrow(()->new AppException("Demande inexistante"));
+        TAgent demandeur = demande.getDmeDemandeur();
+        demande.setDmeEtat(EtatDemande.SOUMIS);
+        TTraitement traitement = new TTraitement();
+        traitement.setTraiDemande(demande);
+        traitement.setTraiDate(LocalDateTime.now());
+        traitement.setTraiStatutDem(true);
+        traitement.setTraiAgtTraiteur(scs.getAuthUser().getAgent());
+        TStructure strDestination;
+        strDestination = strParamRep.findStructureRH().getStructure();
+        demande.setDmeDestination(strDestination);
+        traitement.setTraiStrDestination(strDestination);
+        traiRep.save(traitement);
+        dmeRep.save(demande);
+    }
+    @Override
+    public void viserDemandeAct(Long dmeId, boolean accepte, String motif) {
         TDemande demande = dmeRep.findById(dmeId).orElseThrow(()->new AppException("Demande inexistante"));
         int niveau = scs.getCurrentAss().getAssStruct().getStrNiveau();
         TAgent traiteur = scs.getAuthUser().getAgent().getAgtStructure().getStrRespo();
@@ -62,19 +77,38 @@ public class TraitementService implements ITraitementService
         traitement.setTraiStatutDem(true);
         traitement.setTraiAgtTraiteur(traiteur);
         TStructure strDestination;
+        strDestination = strParamRep.findStructureRH().getStructure();
+        demande.setDmeDestination(strDestination);
+        traitement.setTraiStrDestination(strDestination);
+        traitement.setTraiAgtDestination(strParamRep.findStructureRH().getStructure().getStrRespo());
+        traiRep.save(traitement);
+        dmeRep.save(demande);
+    }
 
+    @Override
+    public void viserDemandeAbsence(Long dmeId, boolean accepte, String motif) {
+        TDemande demande = dmeRep.findById(dmeId).orElseThrow(()->new AppException("Demande inexistante"));
+        int niveau = scs.getCurrentAss().getAssStruct().getStrNiveau();
+        TAgent traiteur = scs.getAuthUser().getAgent().getAgtStructure().getStrRespo();
+        TAgent traiteur2=scs.getCurrentAss().getAssStruct().getStrRespo();
+        demande.setDmeEtat(EtatDemande.EN_COURS_DE_TRAITEMENT);
+        TTraitement traitement = new TTraitement();
+        traitement.setTraiDemande(demande);
+        traitement.setTraiDate(LocalDateTime.now());
+        traitement.setTraiStatutDem(true);
+        traitement.setTraiAgtTraiteur(traiteur2);
+        TStructure strDestination;
         //Si le niveau de la structure est <=2 On transmet la demande au RH pour traitement
         if(niveau<=2 ){
             strDestination = strParamRep.findStructureRH().getStructure();
         }
-       /* if(traiteur.getAgtStructure().getStrNiveau()<=2 ){
-            strDestination = strParamRep.findStructureRH().getStructure();
-        } */
-        else strDestination = traiteur.getAgtStructure().getStrTutelleDirecte();//Sinon on transmet la demande à la tutelle directe
+        else strDestination = traiteur2.getAgtStructure().getStrTutelleDirecte();//Sinon on transmet la demande à la tutelle directe
         demande.setDmeDestination(strDestination);
         traitement.setTraiStrDestination(strDestination);
+/*
         traitement.setTraiAgtDestination(strDestination==null ? null: strDestination.getStrRespo());
-        traiRep.save(traitement);
+*/       demande.setTraitement(traitement);
+         traiRep.save(traitement);
         dmeRep.save(demande);
     }
 
@@ -88,10 +122,7 @@ public class TraitementService implements ITraitementService
 
     }
 
-    @Override
-    public void soumettreDemandeAct(Long dmeId) {
 
-    }
 
     @Override
     public void editerAct(Long dmeId) {
@@ -102,4 +133,7 @@ public class TraitementService implements ITraitementService
     public void attacherAct(Long dmeId, MultipartFile act) {
 
     }
+
+
+
 }

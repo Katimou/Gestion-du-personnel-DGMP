@@ -64,4 +64,9 @@ public class AgentServices implements IAgentServices
 		if(!strRep.existsById(strId)) return Collections.emptyList();
 		return strService.getAllStructureFilles(strId).stream().flatMap(str->agentRep.findByAgtStructure_strId(str.getStrId()).stream()).collect(Collectors.toList());
 	}
+
+	public  Long TotalAgents(){
+
+		return agentRep.count();
+	}
 }

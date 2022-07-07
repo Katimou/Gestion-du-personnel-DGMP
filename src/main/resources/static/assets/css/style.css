@@ -562,17 +562,101 @@ ul.activity-list .activity-desk h5 a { font-weight: bold;}
 .form-label,
 .form__field:focus ~ .form-label {position: absolute;top: 0;display: block;transition: 0.2s;font-size: 12px;color:  grey;}
 .form__field:focus ~ .form-
-
-
-
-
-
-
  {color:  #337ab7;}
 .form__field:focus {padding-bottom: 6px;border-bottom: 2px solid  #337ab7;}
+.modifier{ margin-left:30px!important;
+
+
+}
 /*------------------------------------------------------------------
- [11. TAB ] 
- 
+ [11. TAB ]
+*/
+.progressbar-wrapper {
+    background: #fff;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.progressbar li {
+    list-style-type: none;
+    width:15%;
+    float: left;
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    color: #7d7d7d;
+}
+.progressbar li:before {
+    width: 60px;
+    height: 60px;
+    content: "";
+    line-height: 60px;
+    border: 2px solid #7d7d7d;
+    display: block;
+    text-align: center;
+    margin: 0 auto 3px auto;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+    background-color: #fff;
+}
+.progressbar li:after {
+    width: 100%;
+    height: 2px;
+    content: '';
+    position: absolute;
+    background-color: #7d7d7d;
+    top: 30px;
+    left: -50%;
+    z-index: 0;
+}
+.progressbar li:first-child:after {
+    content: none;
+}
+.progressbar li.active {
+    color: green;
+    font-weight: bold;
+}
+.progressbar li.active:before {
+    border-color: #55b776;
+    background: green;
+}
+progressbar li.traitement{
+    color:gray!important;
+    font-weight: bold;
+}
+progressbar l.refus{
+     color: darkred;
+     font-weight: bold;
+ }
+.progressbar li.active + li:after {
+    background-color: #55b776;
+}
+.progressbar {
+    counter-reset: step;
+}
+.progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+}
+.centrer{
+    text-align: center!important;
+}
+progressbar li.active_RH{
+    color:dimgrey;
+    font-weight: bold;
+}
+.progressbar li.active_RH:before {
+    border-color:gray;
+    background: dimgray;
+}
+.progressbar li.active_RH + li:after {
+    background-color: #55b776;
+}
+/*------------------------------------------------------------------
+ [11. barre de progression ]
 */
 
 .tab-pane > p:last-child { margin-bottom: 0}
@@ -685,7 +769,7 @@ table.dataTable tbody td.patient-img { padding: 2px;}
 .action-label > a:focus,.action-label > a:hover,.action-label > a:active {color:#fff;}
 .action-label .btn-sm {padding: 5px;}
 .print{margin-top: 15px!important;}
-.iprint{font-size:25px!important;}
+.
 
 /*------------------------------------------------------------------
 [17. Edit Profile]

@@ -22,30 +22,125 @@
 													<th  scope="row" style="min-width:50px;">Type</th>
 													<th style="min-width:74px;">Date</th>
 													<th scope="row" style="min-width:50px;">Etat</th>
-													<th > </th>
-													<th >Modifier</th>
+													<th class="modifier">Modifier</th>
 													<th class="spaces">Soumettre</th>
+													<th scope="row" style="min-width:50px;">Plus</th>
                                                 </tr>
 											</thead>
 											<tbody>
 												<tr th:each="d:${demandes}" th:class="${@demandeController.getBootstrapClass(d)}">
 												<td th:text="${d.dmeDemandeur==null ? '' : d.dmeDemandeur.display()}">
 											    <td th:text="${d.dmeType.getTypNom()}">
-												<td th:text="${d.dmeDate}">
-												 <td th:text="${d.dmeEtat}"/>
-													<td class="text-right" style="min-width: 98px;">
+												<td th:text="${d.dmeDate}"/>
+												<td th:text="${d.dmeEtat}"/>
+												 <td class="text-right" >
 														<a th:if="${d.dmeEtat.name()=='INITIE'}" href="edit-student.html" class="btn btn-warning  btn-sm mb-1">
 															<i class="fa fa-pencil colores" aria-hidden="true"></i>
 														</a>
 													</td>
-											 		<td style="margin-right: 60px";>
-                                                        <a th:href="@{'/demandes/traitements/soumission?dmeId=' + ${d.dmeId}}" class="btn btn-succes colore  btn-sm mb-1">
+												 <td style="margin-left: 5px">
+                                                        <a  th:if="${d.dmeEtat.name()=='INITIE'}"th:href="@{'/demandes/traitements/soumission?dmeId=' + ${d.dmeId}}" class="btn btn-succes colore  btn-sm mb-1">
 														<i class="fa fa-check " aria-hidden="true"></i>
 														</a>
 												   </td>
-												</tr>
-												<tr>
-													
+												  <td style="margin-right:60px">
+													  <button type="button" class="btn btn-success" data-toggle="modal" th:data-target="'#exampleModal'+${d.dmeId}">
+														  Plus
+													  </button>
+												  </td>
+													<!-- Modal -->
+													<div   class="modal fade " th:id="'exampleModal'+${d.dmeId}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+														<div class="modal-dialog modal-xl">...</div>
+															<div class="modal-content">
+																<div style="text-align: center!important;">
+																	<h4>PROGRESSION DE LA DEMANDE</h4>
+																</div>
+																<div class="modal-body">
+																	<div class="progressbar-wrapper">
+																		<ul class="progressbar">
+																			<div th:if="${@typRep.isSousType('DEMANDE_ABSENCE',d.dmeType.getTypNom())}">
+																				<div th:if="${d.dmeDemandeur.agtStructure.getStrNiveau()==4}">
+																					<li th:class="active">SOUMIS</li>
+																					<li th:if="${d.getDmeDestination().getStrNiveau()<=3  &&  d.dmeEtat.toString()=='EN_COURS_DE_TRAITEMENT'}"
+																						th:class="active">CS
+																					</li>
+																					<li th:if="${d.getDmeDestination().getStrNiveau()<=4 && d.dmeEtat.toString() =='SOUMIS'}">
+																						CS
+																					</li>
+																					<li th:if="${d.getDmeDestination().getStrNiveau()<=2 && (d.dmeEtat.toString()=='EN_COURS_DE_TRAITEMENT')}"
+																						th:class="active" }>SD
+																					</li>
+																					<li th:if="${d.getDmeDestination().getStrNiveau()>=2}">
+																						SD
+																					</li>
+																					<li th:if="${(d.getDmeDestination().strId==@paramRep.findStructureRH().getStructure().strId) or d.getDmeDestination().strId==@paramRep.findStructureMere().getStructure().strId &&  d.dmeEtat.toString()=='EN_COURS_DE_TRAITEMENT'}"
+																						th:class="active">DIR
+																					</li>
+																					<li th:if="${d.getDmeDestination().strId!= @paramRep.findStructureMere().getStructure().strId && d.getDmeDestination().strId!= @paramRep.findStructureRH().getStructure().strId }">
+																						DIR
+																					</li>
+																					<li th:if="${(d.getDmeDestination().strId==@paramRep.findStructureMere().getStructure().strId)}"
+																						th:class="active_RH">RH
+																					</li>
+																					<li th:if="${(d.getDmeDestination().strId!=@paramRep.findStructureMere().getStructure().strId)}">
+																						RH
+																					</li>
+																					<li>DG</li>
+																				</div>
+																				<div th:if="${d.dmeDemandeur.agtStructure.getStrNiveau()==3}">
+																					<li th:class="active">SOUMIS</li>
+																					<li th:if="${d.getDmeDestination().getStrNiveau()<=2 &&  d.dmeEtat.toString()=='EN_COURS_DE_TRAITEMENT'}"
+																						th:class="active">SD
+																					</li>
+																					<li th:if="${d.getDmeDestination().getStrNiveau()<=3 && d.dmeEtat.toString() =='SOUMIS'}">
+																						SD
+																					</li>
+																					<li th:if="${d.getDmeDestination().getStrNiveau()<=2 && d.getDmeDestination().strId==@paramRep.findStructureRH().getStructure().strId or d.getDmeDestination().strId==@paramRep.findStructureMere().getStructure().strId}"
+																						th:class="active" }>DIR
+																					</li>
+																					<li th:if="${d.getDmeDestination().getStrNiveau()==3 && d.getDmeDestination().strId!=@paramRep.findStructureRH().getStructure().strId}">
+																						DIR
+																					</li>
+																					<li th:if="${(d.getDmeDestination().strId==@paramRep.findStructureMere().getStructure().strId)}"
+																						th:class="active_RH">RH
+																					</li>
+																					<li th:if="${(d.getDmeDestination().strId!=@paramRep.findStructureMere().getStructure().strId)}">
+																						RH
+																					</li>
+																					<li>DG</li>
+																				</div>
+																				<div th:if="${d.dmeDemandeur.agtStructure.getStrNiveau()==2}">
+																					<li th:class="active">SOUMIS</li>
+																					<li th:if="${d.getDmeDestination().strId==@paramRep.findStructureRH().getStructure().strId or d.getDmeDestination().strId==@paramRep.findStructureMere().getStructure().strId}"
+																						th:class="active">DIR
+																					</li>
+																					<li th:if="${d.getDmeDestination().getStrNiveau()<=2 &&  d.dmeEtat.toString()=='SOUMIS'}">
+																						DIR
+																					</li>
+																					<li th:if="${(d.getDmeDestination().strId!=@paramRep.findStructureMere().getStructure().strId)}">
+																						RH
+																					</li>
+																					<li th:if="${(d.getDmeDestination().strId==@paramRep.findStructureMere().getStructure().strId)}"
+																						th:class="active_RH">RH
+																					</li>
+																					<li>DG</li>
+																				</div>
+																			</div>
+																			<div th:if="${@typRep.isSousType('DEMANDE_ACTES',d.dmeType.getTypNom())}">
+																				<li th:class="active">SOUMIS</li>
+																				<li th:if="${(d.getDmeDestination().strId==@paramRep.findStructureMere().getStructure().strId)}"th:class="active_RH">RH</li>
+																				<li th:if="${(d.getDmeDestination().strId!=@paramRep.findStructureMere().getStructure().strId)}"th:class="active_RH">RH</li>
+																				<li>DG</li>
+																			</div>
+																		</ul>
+																	</div>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+																	<button type="button" class="btn btn-primary">Save changes</button>
+																</div>
+															</div>
+														</div>
 												</tr>
 											</tbody>
 										</table>

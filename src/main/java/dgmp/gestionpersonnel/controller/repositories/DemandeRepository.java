@@ -19,9 +19,11 @@ public interface DemandeRepository extends JpaRepository<TDemande,Long>
 
     @Query("select d from TDemande d where d.dmeDestination.strId = ?1 ")
     List<TDemande> getListDmeSentToStrDer(Long strId);
-
-
-
     @Query("select count(t) from TDemande t where t.dmeDestination.strId = ?1")
     long countByDmeDestination_StrId(Long strId);
+
+
+    @Query("select count(t) from TDemande t where t.dmeType.typId = ?1")
+    long couByTypDmeId(Long typId);
+
 }

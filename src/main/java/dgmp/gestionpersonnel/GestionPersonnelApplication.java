@@ -1,41 +1,67 @@
 package dgmp.gestionpersonnel;
 import java.io.File;
-import java.util.Date;
+import java.io.FileNotFoundException;
+import java.util.List;
 
+import dgmp.gestionpersonnel.controller.repositories.*;
+import dgmp.gestionpersonnel.controller.services.JasperReportServicePdf;
+import net.sf.jasperreports.engine.JRException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import dgmp.gestionpersonnel.controller.repositories.AgentRepository;
-import dgmp.gestionpersonnel.controller.repositories.TypeRepository;
-import dgmp.gestionpersonnel.controller.repositories.TypeStructureParamRepository;
 import dgmp.gestionpersonnel.controller.services.IStructureService;
 import dgmp.gestionpersonnel.controller.utilities.ArchivageConstants;
 import dgmp.gestionpersonnel.model.entities.TAgent;
 import dgmp.gestionpersonnel.model.entities.TType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+@Controller
 @SpringBootApplication
 public class GestionPersonnelApplication {
+
+	@Autowired
+	private JasperRepository repository;
+	@Autowired
+	private JasperReportServicePdf service;
+	@Autowired
+
+
+	@GetMapping("/getEmployees")
+	public List<TAgent> getEmployees() {
+
+		return repository.findAll();
+	}
+
+
+	@GetMapping("/report/{format}")
+	public String generateReport(@PathVariable String format) throws FileNotFoundException, JRException {
+		service.exportReport(format);
+		return "/agents/jasperFont";
+	}
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(GestionPersonnelApplication.class, args);
 	}
-	
+
 	@Bean
 	CommandLineRunner start(AgentRepository agentRep, PasswordEncoder passwordEncoder,
-							TypeRepository typeRep, TypeStructureParamRepository tspRep, IStructureService strService)
-	{
-		
-		return (args)->
+							TypeRepository typeRep, TypeStructureParamRepository tspRep, IStructureService strService) {
+
+		return (args) ->
 		{
 			TAgent agent = TAgent.builder()
 					.agtUsername("kataye")
 					.agtPasswword(passwordEncoder.encode("samie"))
 					.agtActive(true)
 					.agtTel("56780084")
-			    	.agtAdresse("Riviera")
-					.agtDateNaiss(new Date())
+					.agtAdresse("Riviera")
 					.agtEmail("nomakatimou3@gmail.com")
 					.agtFonction("DGA")
 					.agtGrade("A5")
@@ -66,8 +92,8 @@ public class GestionPersonnelApplication {
 			Arrays.asList(SD, SCE, SEC).forEach(type->tspRep.save(new TTypeStructureParam(null, DC, type)));
 			Arrays.asList(SCE, SEC).forEach(type->tspRep.save(new TTypeStructureParam(null, DR, type)));
 			Arrays.asList(SCE, SEC).forEach(type->tspRep.save(new TTypeStructureParam(null, SD, type)));
-			Arrays.asList(SEC).forEach(type->tspRep.save(new TTypeStructureParam(null, SCE, type)));	*/	
-			
+			Arrays.asList(SEC).forEach(type->tspRep.save(new TTypeStructureParam(null, SCE, type)));	*/
+
 			TType DG = typeRep.findById(1L).get();
 			TType DC = typeRep.findById(3L).get();
 			TType DR = typeRep.findById(4L).get();
@@ -75,24 +101,25 @@ public class GestionPersonnelApplication {
 			TType SCE = typeRep.findById(6L).get();
 			TType SEC = typeRep.findById(8L).get();
 			TType CAB = typeRep.findById(7L).get();
-			
+
 			typeRep.findSousType(DC.getTypId()).forEach(System.out::println);
-			
-			strService.getAllStructureFilles(3L).forEach(s->System.out.println(s.display()));
-		
+
+			strService.getAllStructureFilles(3L).forEach(s -> System.out.println(s.display()));
+
+
 		};
 	}
-	
+
 	@Bean
-	CommandLineRunner  createSystemDirectories() 
-	{
-		return(args)->
+	CommandLineRunner createSystemDirectories() {
+		return (args) ->
 		{
-			File uploadDir= new File(ArchivageConstants.UPLOADS_DIR);
-			File agtUploadDir= new File(ArchivageConstants.AGENT_UPLOADS_DIR);
-			if(!uploadDir.exists()) uploadDir.mkdirs();
-			if(!agtUploadDir.exists()) agtUploadDir.mkdirs(); 
-			
+			File uploadDir = new File(ArchivageConstants.UPLOADS_DIR);
+			File agtUploadDir = new File(ArchivageConstants.AGENT_UPLOADS_DIR);
+			if (!uploadDir.exists()) uploadDir.mkdirs();
+			if (!agtUploadDir.exists()) agtUploadDir.mkdirs();
+
 		};
+
 	}
 }

@@ -49,10 +49,6 @@ public class AgentController {
 
 	@GetMapping(path = "/index")
 	public String getListAgents(Model model) {
-		System.out.println("=======================");
-		System.out.println(scs.getAuthUsername());
-		scs.getAuthorities().forEach(System.out::println);
-		System.out.println("======================");
 
 		model.addAttribute("agents", agentRep.findByAgtActiveTrue());
 		return "agents/index";
