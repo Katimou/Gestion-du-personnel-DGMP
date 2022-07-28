@@ -6,20 +6,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import dgmp.gestionpersonnel.controller.repositories.AssignationRepository;
+import dgmp.gestionpersonnel.controller.repositories.MouvementRepository;
 import dgmp.gestionpersonnel.controller.services.IMouvementService;
+import dgmp.gestionpersonnel.model.entities.TMouvement;
 import dgmp.gestionpersonnel.security.services.ISecurityContextService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import dgmp.gestionpersonnel.controller.repositories.AgentRepository;
 import dgmp.gestionpersonnel.controller.services.IAgentServices;
@@ -39,11 +35,10 @@ public class AgentController {
 	private final IAgentServices agentServices;
 	private final ISecurityContextService scs;
 	private final AssignationRepository assRep;
-	private final IMouvementService mvtService;
-
+    private final MouvementRepository mvtRep;
 	/*
 	 * @GetMapping(path="/index") public String goToIndex(Model model) {
-	 * List<ChefService> agentServices=agentService.getAgent();
+	 * List<ChefServce> agentServices=agentService.getAgent();
 	 * model.addAttribute("agentServices",agentServices); return "agents/index"; }
 	 */
 
@@ -78,27 +73,28 @@ public class AgentController {
 		agent = agentServices.createAgent(agent);
 		return "redirect:/agents/addSuccess?agtId=" + agent.getAgtId();
 	}
-
 	@GetMapping(path = "/GoToListeAgent")
 	@PreAuthorize("hasAnyAuthority('RH', 'RESPONSABLE', 'SECRETAIRE')")
 	public String goToListe(Model model) {
 		model.addAttribute("agent", agentServices.getAllAgentsByStrId(scs.getCurrentAss().getAssStruct().getStrId()));
-		return "agents/listeAgent";
+		return "agents/listAgent";
 	}
 
 	@GetMapping(path = "/gotoUpdateForm")
 	public String goToUpdateForm(@RequestParam(name = "id", defaultValue = "") Long id, Model model) {
 		TAgent agent = agentRep.findById(id).orElse(null);
 		model.addAttribute("agents", agent);
-		return "agents/modalForm";
+		return "agents/updateForm";
 	}
 
 	@GetMapping(path = "/goToConsult")
 	public String goToConsult(@RequestParam(name = "idAgent", defaultValue = "") Long id, Model model) {
 		TAgent agent = agentRep.findById(id).orElse(null);
+		TMouvement mvt= mvtRep.findByMvtAgent_AgtId(id);
 		if (agent == null)
 		return "redirect:/agents/GoToListeAgent";
 		model.addAttribute("agents", agent);
+		model.addAttribute("mvt",mvt);
 //		model.addAttribute("agentPhoto", filesManager.downloadFile(agent.getAgtPhotoPath()));
 		return "agents/aboutAgent";
 	}
@@ -162,7 +158,6 @@ public class AgentController {
 
 		return "agents/accueil";
 	}
-
 	@GetMapping(path = "/addSuccess")
 	public String GoToSuccess(@RequestParam(name = "agtId", defaultValue = "") Long id, Model model) {
 		TAgent agent = agentRep.findById(id).orElse(null);

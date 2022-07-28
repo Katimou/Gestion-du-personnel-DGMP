@@ -1,139 +1,142 @@
-<!--
 <!DOCTYPE html>
 <html lang="eng" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout}">
 <head>
-<meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
+    <meta charset="utf-8">
 </head>
 <body>
-	<div layout:fragment="content">
-        <section style="background-color: #eee;">
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col">
-                        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-                            <ol class="breadcrumb mb-0">
-                                <li class="breadcrumb-item"><a href="/agents/GoToListeAgent">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">User</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">User Profile</li>
-                            </ol>
-                        </nav>
-                    </div>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<div layout:fragment="content">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+                    <h5 class="text-uppercase">Fiche d'identification</h5>
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card mb-4">
-                            <div class="card-body text-center">
-                                <img th:src="@{'/agents/displayPhoto/' + ${agents.agtId}}" alt="Card image"
-                                     class="rounded-circle img-fluid" style="width: 150px;">
-                                <h5 class="my-3" th:text="${agents.display()}"></h5>
-                                <p class="text-muted mb-1" th:text="${agents.agtFonction}">Full Stack Developer</p>
-                                <p class="text-muted mb-4" th:text="${agents.agtStructure.getStrNomStruc()}"></p>
-                            </div>
-                            <div class="col-lg-8">
-                                <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Noms et Prénoms</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0" th:text="${agents.display()}" ></p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Matricule</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0" th:text="${agents.agtMatricule}"></p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Date de naissance</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0" th:text="${agents.agtDateNaiss}"></p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Structure</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0" th:text="${agents.agtStructure.getStrNomStruc()}"></p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3" >
-                                                <p class="mb-0">Affecté(é)</p>
-                                            </div>
-
-                                                <div class="col-sm-9"  th:if="${@mvtRep.existsByMvtAgent_AgtId(agents.agtId)}">
-                                                    <p class="text-muted mb-0">Oui</p>
-                                                </div>
-                                             <div class="col-sm-9" th:if="${!@mvtRep.existsByMvtAgent_AgtId(agents.agtId)}">
-                                                    <p class="text-muted mb-0">Non</p>
-                                                </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row" th:if="${@mvtRep.existsByMvtAgent_AgtId(agents.agtId)}">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Structure d'origine</p>
-                                            </div>
-                                            <div class="col-sm-9" >
-                                                <p class="text-muted mb-0" th:text="${@mvtRep.findByMvtAgent_AgtId(agents.agtId).mvtStructureOrigine.getStrNomStruc()}"></p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Fonction</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0" th:text="${agents.agtFonction}"></p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Email</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0" th:text="${agents.agtEmail}"></p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Adresse</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0" th:text="${agents.agtAdresse}"></p>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <p class="mb-0">Tel</p>
-                                            </div>
-                                            <div class="col-sm-9">
-                                                <p class="text-muted mb-0"th:text="${agents.agtTel}"></p>
-                                            </div>
-                                        </div>
-                                        <hr>
+                <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                    <ul class="list-inline breadcrumb float-right">
+                        <li class="list-inline-item"><a th:href="@{/agents/index}">Home</a></li>
+                        <li class="list-inline-item"><a th:href="@{/agents/GoToListeAgent}">liste</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <img th:src="@{'/agents/displayPhoto/' + ${agents.agtId}}" alt="Card image"
+                                 class="rounded-circle img-fluid" style="width: 150px;">
+                            <h5 class="my-3" th:text="${agents.display()}"></h5>
+                            <p class="text-muted mb-1" th:text="${agents.agtFonction}"></p>
+                            <p class="text-muted mb-4" th:text="${agents.agtStructure.getStrNomStruc()}"></p>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Noms et Prénoms</p>
                                     </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0" th:text="${agents.display()}" ></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Matricule</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0" th:text="${agents.agtMatricule}"></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Date de naissance</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0" th:text="${agents.agtDateNaiss}"></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Structure</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0" th:text="${agents.agtStructure.getStrNomStruc()}"></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3" >
+                                        <p class="mb-0">Affecté(é)</p>
+                                    </div>
+                                    <div class="col-sm-9"  th:if="${@mvtRep.existsByMvtAgent_AgtId(agents.agtId)}">
+                                        <p class="text-muted mb-0">Oui</p>
+                                    </div>
+                                    <div class="col-sm-9" th:if="${!@mvtRep.existsByMvtAgent_AgtId(agents.agtId)}">
+                                        <p class="text-muted mb-0">Non</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row" th:if="${@mvtRep.existsByMvtAgent_AgtId(agents.agtId)}">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Structure d'origine</p>
+                                    </div>
+                                    <div class="col-sm-9" >
+                                        <p class="text-muted mb-0" th:text="${@mvtRep.findByMvtAgent_AgtId(agents.agtId).mvtStructureOrigine.getStrNomStruc()}"></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Fonction</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0" th:text="${agents.agtFonction}"></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Email</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0" th:text="${agents.agtEmail}"></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Adresse</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0" th:text="${agents.agtAdresse}"></p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p class="mb-0">Tel</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p class="text-muted mb-0"th:text="${agents.agtTel}"></p>
+                                    </div>
+                                </div>
+                                <hr>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-     </div>
+        </div>
+        </div>
+</div>
+</body>
 </body>
 
-</html>-->
+</html>

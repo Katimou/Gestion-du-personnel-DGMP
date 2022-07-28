@@ -39,10 +39,10 @@ public class StructureController
 	public String saveStructure(Model model, TStructure structure)
 	{
 		structure = strService.createStructure(structure);
-//		return "redirecte:/about/" + structure.getStrId();
-		return "";
+		model.addAttribute("structure",structure);
+    	return "structures/sucessSave";
 	}
-	
+
 	@GetMapping(path = "/goToUpdateForm")
 	public String goToUpdateStructure(Model model)
 	{
@@ -54,7 +54,7 @@ public class StructureController
 	public String updateStructure(Model model, TStructure structure)
 	{
 		structure = strService.updateStructure(structure.getStrId(), structure);
-		return "redirecte:/about/" + structure.getStrId();
+		return "redirect:/about/strId=" + structure.getStrId();
 	}
 
 	@GetMapping(path = "/list")
@@ -64,12 +64,6 @@ public class StructureController
 		return "liste";
 	}
 	
-	@GetMapping(path = "/about/{strId}")
-	public String goToAboutStructure(Model model, @PathVariable Long strId)
-	{
-		model.addAttribute("structure", strRep.findById(strId).orElse(null));
-		return "structures/about";
-	}
 
 	@GetMapping(path = "/organisation")
 	public String Organisation(Model model)

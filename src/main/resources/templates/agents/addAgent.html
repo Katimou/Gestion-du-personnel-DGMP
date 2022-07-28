@@ -2,33 +2,10 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout}">
-
 <head>
-
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, user-scalable=0">
-<link rel="shortcut icon" type="image/x-icon"
-	href="assets/img/favicon.png">
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900"
-	rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css"
-	href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="assets/css/fullcalendar.min.css">
-<link rel="stylesheet" type="text/css"
-	href="assets/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" type="text/css" href="assets/css/select2.min.css">
-<link rel="stylesheet" type="text/css"
-	href="assets/css/bootstrap-datetimepicker.min.css">
-<link rel="stylesheet" type="text/css"
-	href="assets/plugins/morris/morris.css">
-
+<link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
 </head>
-
 <body>
 	<div layout:fragment="content">
 		<div class="content container-fluid">
@@ -39,16 +16,14 @@
 					</div>
 					<div class="col-lg-5 col-md-12 col-sm-12 col-12">
 						<ul class="list-inline breadcrumb float-right">
-							<li class="list-inline-item"><a th:href="@{/agents/update}">Home</a></li>
-							<li class="list-inline-item"><a href="#">Modifier</a></li>
-							<li class="list-inline-item">Consulter</li>
+							<li class="list-inline-item"><a th:href="@{/agents/index}">Home</a></li>
+							<li class="list-inline-item"><a th:href="@{/agents/GoToListeAgent}">liste</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 			<form method="post" th:action="@{/agents/saveAgent}" enctype="multipart/form-data"
 				th:object="${agent}">
-
 				<div class="page-content">
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-12">
@@ -61,7 +36,6 @@
 												<input type="text" name="agtNom" th:field="*{agtNom}"
 													th:value="${agent.agtNom}" /> <label class="control-label">Nom</label>
 										             <i class="bar"></i>
-										              <small class="text-danger" th:errors=${agent.agtNom}></small>
 											</div>
 											<div class="form-group custom-mt-form-group">
 												<input type="date" name="agtDateNaiss"
@@ -154,13 +128,10 @@
 						</div>
 					</div>
 				</div>
-
 			</form>
 		</div>
-
-
 	</div>
-
+	<div layout:fragment="specific-js-dependancies">
+	</div>
 </body>
-
 </html>

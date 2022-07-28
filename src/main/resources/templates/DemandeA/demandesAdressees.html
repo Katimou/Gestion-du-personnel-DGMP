@@ -3,17 +3,28 @@
       xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout}">
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
 </head>
 <body>
 <div layout:fragment="content">
     <div class="row mt-2">
         <div class="col-lg-12">
             <div class="content-page">
+                <div class="page-header">
+                    <div class="row">
+                        <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+                            <h5 class="text-uppercase">Liste de vos demandes</h5>
+                        </div>
+                        <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                            <ul class="list-inline breadcrumb float-right">
+                                <li class="list-inline-item"><a th:href="@{/agents/index}">Home</a></li>
+                                <li class="list-inline-item"><a th:href="@{/agents/gotoChangeAss}">changer d'assignation</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="page-title mb-2">
-                            Liste de vos demandes
-                        </div>
                         <div class="table-responsive">
                             <table class="table table-striped custom-table">
                                 <thead>
@@ -23,7 +34,6 @@
                                     <th style="min-width:74px;">Date</th>
                                     <th scope="row" style="min-width:50px;">Motif</th>
                                     <th scope="row" style="min-width:50px;">Actions</th>
-
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -84,22 +94,16 @@
                                                                         <tr>
                                                                             <th>Date</th>
                                                                             <th>Service</th>
-                                                                            <th>Agent</th>
+                                                                            <th>Traiteur</th>
                                                                             <th>Motif</th>
                                                                         </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                        <tr th:each="traitement: ${d.traitements}">
+                                                                        <tr th:each="traitement: ${@traiRep.findByDemande(d.dmeId)}">
                                                                             <td th:text="${traitement.traiDate}"></td>
-                                                                            <td th:text="${traitement.traiStrDestination.display()}">
-                                                                                Service
-                                                                            </td>
-                                                                            <td th:text="${traitement.traiAgtTraiteur.display()}">
-                                                                                Agent
-                                                                            </td>
-                                                                            <td th:text="${traitement.traiMotifRefus}">
-                                                                                Motif
-                                                                            </td>
+                                                                            <td th:text="${traitement.traiStrDestination.display()}"></td>
+                                                                            <td th:text="${traitement.traiAgtTraiteur.display()}"></td>
+                                                                            <td th:text="${traitement.traiMotifRefus}"></td>
                                                                         </tr>
                                                                         </tbody>
                                                                     </table>
@@ -177,10 +181,5 @@
         </div>
     </div>
 </div>
-
 </body>
-<div layout:fragment="specific-js-dependancies">
-    <script>
-    </script>
-</div>
 </html>

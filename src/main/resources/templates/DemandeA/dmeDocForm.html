@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout}">
-
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
 </head>
 <body>
 <div layout:fragment="content">
@@ -15,9 +15,8 @@
                 </div>
                 <div class="col-lg-5 col-md-12 col-sm-12 col-12">
                     <ul class="list-inline breadcrumb float-right">
-                        <li class="list-inline-item"><a href="#">Home</a></li>
-                        <li class="list-inline-item"><a href="#">Forms</a></li>
-                        <li class="list-inline-item">Basic Inputs</li>
+                        <li class="list-inline-item"><a th:href="@{/agents/index}">Home</a></li>
+                        <li class="list-inline-item"><a th:href="@{/agents/GoToListeAgent}">liste</a></li>
                     </ul>
                 </div>
             </div>
@@ -50,9 +49,9 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
-
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 package dgmp.gestionpersonnel.controller.web;
+import java.io.IOException;
 import java.util.List;
-
 import dgmp.gestionpersonnel.controller.repositories.DemandeRepository;
 import dgmp.gestionpersonnel.controller.repositories.TraitementRepository;
 import dgmp.gestionpersonnel.controller.services.ITraitementService;
@@ -10,7 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import dgmp.gestionpersonnel.controller.repositories.TypeRepository;
 import dgmp.gestionpersonnel.controller.services.IDemandeAServices;
 import dgmp.gestionpersonnel.model.entities.TDemande;
@@ -45,7 +44,6 @@ public class DemandeController
 
 		return "DemandeA/sortieDuTerritoire";
 	}
-
 	@GetMapping(path = "/FormDemandeDoc")
 	public String GoToFormDemandeDoc(Model model) {
 		List<TType> typeDmdeDocs=typeRep.findSousType(typeRep.findByTypNom("DEMANDE_ACTES").getTypId());
@@ -54,25 +52,27 @@ public class DemandeController
 		return "DemandeA/dmeDocForm";
 	}
 	@PostMapping(path = "/save")
-    public String saveDemandeA(@ModelAttribute TDemande demande, Model model) {
+    public String saveDemandeA(@ModelAttribute TDemande demande, Model model)throws IOException {
 	  	TDemande dme = demandeAServices.saveDemande(demande);
-	  return "redirect:/demandes/GoToDmeWorkflow?DmeId";
-}
+		return "redirect:/demandes/GoToDmeWorkflow?dmeId=" + dme.getDmeId();
+	}
+
 	@PostMapping(path = "/saveDmeDocs")
 	public String saveDmeDocs(@ModelAttribute TDemande demande, Model model) {
 		TDemande dme = demandeAServices.saveDemande(demande);
-		return "redirect:/demandes/GoToDmeWorkflow?DmeId";
+		model.addAttribute("demande",dme);
+		return "redirect:/demandes/GoToDmeWorkflow?dmeId=" + dme.getDmeId();
 	}
 	@PostMapping(path = "/saveDemandeSortie")
 	public String saveSortie(@ModelAttribute TDemande demande, Model model) {
 		TDemande dme = demandeAServices.saveDemande(demande);
-		return "redirect:/demandes/GoToDmeWorkflow?DmeId";
+		return "redirect:/demandes/GoToDmeWorkflow?dmeId=" + dme.getDmeId();
 	}
    @GetMapping(path = "/GoToDmeWorkflow")
-   public String GoToDmeWorkflow() {
-	  
+   public String GoToDmeWorkflow(@RequestParam(name = "dmeId", defaultValue = "") Long dmeId, Model model) {
+	  TDemande dme= dmeRep.findById(dmeId).orElse(null);
+	  model.addAttribute("demande",dme);
 	   return "DemandeA/demandeWorkflow";
-
 }
    @GetMapping(path = "/goToListeDemande")
 	public String GoToSuccess(Model model) {
@@ -93,7 +93,6 @@ public class DemandeController
 		return "redirect:/demandes/goToListeDemande";
 	}
 
-
 	@GetMapping(path = "/traitements/soumission")
 	public String soumettreDemande(Model model, @RequestParam(defaultValue = "0") long dmeId) {
 		TDemande demande = dmeRep.findById(dmeId).orElseThrow(()->new AppException("Demande inxistante"));
@@ -107,7 +106,7 @@ public class DemandeController
 
 	@GetMapping(path = "/DemandeAdressees")
 	@PreAuthorize("hasAnyAuthority('RH', 'RESPONSABLE', 'SECRETAIRE')")
-	public String traiteur(Model model) {
+	public String DemandeAdresees(Model model) {
 		List<TDemande> demandes= dmeRep.getListDmeSentToStrDer(scs.getCurrentAss().getAssStruct().getStrId()) ;
 		model.addAttribute("demandes",demandes);
 		return "DemandeA/demandesAdressees";
@@ -147,16 +146,12 @@ public class DemandeController
 
 	public String getStyleCSS(TDemande dme)
 	{
-		switch (dme.getDmeEtat())
+		switch (dme.getTraitement().getTraiStrDestination().getStrNiveau())
 		{
-			case SOUMIS: return "soumission";
-			case EN_COURS_DE_TRAITEMENT: return "traitement";
-			case REFUSE: return "refuser";
-			case VALIDE: return "valider";
-			default: return "";
+			case 4: return "active";
+			case 3: return "active";
+			case 2: return "active";
+			default:return "";
 		}
 	}
-
-
-
 }

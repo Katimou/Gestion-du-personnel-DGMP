@@ -42,8 +42,8 @@ public class TraitementService implements ITraitementService
         TStructure strDestination;
         if(demandeur.getAgtStructure().getStrNiveau()<=2 ) strDestination = demandeur.isResponsable() ? strParamRep.findStructureRH().getStructure():demandeur.getAgtStructure();
         else strDestination = demandeur.isResponsable() ?demandeur.getAgtStructure().getStrTutelleDirecte():demandeur.getAgtStructure();
-        demande.setDmeDestination(strDestination);
         traitement.setTraiStrDestination(strDestination);
+        demande.setDmeDestination(strDestination);
         traiRep.save(traitement);
         dmeRep.save(demande);
     }

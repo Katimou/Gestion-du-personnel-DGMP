@@ -1,31 +1,18 @@
     // Chart
-var colorsDash = ['#ff9b44', 'gray'];
+	
+
+
+
+  var colorsDash = ['#8E37D7', '#01c0c8' ,'#6B8DD6'];
 Morris.Donut({
   element: 'school-chart',
   colors: colorsDash,
   resize: true,
-   labels: ['Series A', 'Series B'],
+   labels: ['Series A', 'Series B','Series C'],
   data: [
-    {label: "Fonctionnaires", value:300},
-    {label: "Contractuels", value: 18000},
-  
-  ],
-    xkey: 'label',
-  ykeys: ['value'],
-   labels: ['Value']
-});
-
-
-  var colorsDash = ['#ff9b44', 'gray','#36AE7C'];
-Morris.Donut({
-  element: 'school-chart2',
-  colors: colorsDash,
-  resize: true,
-   labels: ['Series A', 'Series B'],
-  data: [
-    {label: "Congés", value: 30},
-    {label: "Sorties du territoire", value:10},
-    {label: "Absences", value: 40},
+    {label: "Students", value: 60000},
+    {label: "Teachers", value: 12000},
+    {label: "Parents", value: 20000}
   ],
     xkey: 'label',
   ykeys: ['value'],

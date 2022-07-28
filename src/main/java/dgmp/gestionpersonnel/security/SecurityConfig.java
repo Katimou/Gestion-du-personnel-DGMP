@@ -1,5 +1,4 @@
 package dgmp.gestionpersonnel.security;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 	@Override
 	public void configure(WebSecurity web) {
 		web.ignoring()
-				.antMatchers("/resources/**", "/static/**");
+				.antMatchers("/resources/**", "/static.assets/**");
 	}
 
 	@Override
@@ -55,8 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 						.defaultSuccessUrl("/agents/accueil")
 						.failureUrl("/agents/login?error=true")
 				);
-
-
 		 /*.antMatchers("/resources/**", "/css/**", "/js/**", "/img/**").permitAll()
 		 .anyRequest().authenticated() .and() .formLogin() .loginPage("/agents/login")
 		 .defaultSuccessUrl("/agents/accueil") .permitAll() .and()

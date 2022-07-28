@@ -2,17 +2,18 @@ package dgmp.gestionpersonnel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
-
 import dgmp.gestionpersonnel.controller.repositories.*;
+import dgmp.gestionpersonnel.controller.services.EmailServiceImpl;
 import dgmp.gestionpersonnel.controller.services.JasperReportServicePdf;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import dgmp.gestionpersonnel.controller.services.IStructureService;
 import dgmp.gestionpersonnel.controller.utilities.ArchivageConstants;
 import dgmp.gestionpersonnel.model.entities.TAgent;
@@ -20,6 +21,8 @@ import dgmp.gestionpersonnel.model.entities.TType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import javax.mail.MessagingException;
 
 @Controller
 @SpringBootApplication
@@ -30,7 +33,6 @@ public class GestionPersonnelApplication {
 	@Autowired
 	private JasperReportServicePdf service;
 	@Autowired
-
 
 	@GetMapping("/getEmployees")
 	public List<TAgent> getEmployees() {
@@ -44,12 +46,6 @@ public class GestionPersonnelApplication {
 		service.exportReport(format);
 		return "/agents/jasperFont";
 	}
-
-
-	public static void main(String[] args) {
-		SpringApplication.run(GestionPersonnelApplication.class, args);
-	}
-
 	@Bean
 	CommandLineRunner start(AgentRepository agentRep, PasswordEncoder passwordEncoder,
 							TypeRepository typeRep, TypeStructureParamRepository tspRep, IStructureService strService) {
@@ -110,6 +106,9 @@ public class GestionPersonnelApplication {
 		};
 	}
 
+	public static void main(String[] args) {
+		SpringApplication.run(GestionPersonnelApplication.class, args);
+	}
 	@Bean
 	CommandLineRunner createSystemDirectories() {
 		return (args) ->

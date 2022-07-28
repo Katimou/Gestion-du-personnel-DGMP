@@ -3,17 +3,28 @@
 	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/layout}">
 <head>
 <meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
 </head>
 <body>
 	<div layout:fragment="content">
            				<div class="row mt-2">
 					<div class="col-lg-12">
+						<div class="page-header">
+							<div class="row">
+								<div class="col-lg-7 col-md-12 col-sm-12 col-12">
+									<h5 class="text-uppercase">Demandes à viser</h5>
+								</div>
+								<div class="col-lg-5 col-md-12 col-sm-12 col-12">
+									<ul class="list-inline breadcrumb float-right">
+										<li class="list-inline-item"><a th:href="@{/agents/index}">Home</a></li>
+										<li class="list-inline-item"><a th:href="@{/agents/GoToListeAgent}">liste</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
 						<div class="content-page">
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 col-12">
-									<div class="page-title mb-2">
-									  Liste de vos demandes
-									</div>
 									<div class="table-responsive">
 										<table class="table table-striped custom-table">
 											<thead>
@@ -61,30 +72,14 @@
 																			<div th:if="${@typRep.isSousType('DEMANDE_ABSENCE',d.dmeType.getTypNom())}">
 																				<div th:if="${d.dmeDemandeur.agtStructure.getStrNiveau()==4}">
 																					<li th:class="active">SOUMIS</li>
-																					<li th:if="${d.getDmeDestination().getStrNiveau()<=3  &&  d.dmeEtat.toString()=='EN_COURS_DE_TRAITEMENT'}"
-																						th:class="active">CS
-																					</li>
-																					<li th:if="${d.getDmeDestination().getStrNiveau()<=4 && d.dmeEtat.toString() =='SOUMIS'}">
-																						CS
-																					</li>
-																					<li th:if="${d.getDmeDestination().getStrNiveau()<=2 && (d.dmeEtat.toString()=='EN_COURS_DE_TRAITEMENT')}"
-																						th:class="active" }>SD
-																					</li>
-																					<li th:if="${d.getDmeDestination().getStrNiveau()>=2}">
-																						SD
-																					</li>
-																					<li th:if="${(d.getDmeDestination().strId==@paramRep.findStructureRH().getStructure().strId) or d.getDmeDestination().strId==@paramRep.findStructureMere().getStructure().strId &&  d.dmeEtat.toString()=='EN_COURS_DE_TRAITEMENT'}"
-																						th:class="active">DIR
-																					</li>
-																					<li th:if="${d.getDmeDestination().strId!= @paramRep.findStructureMere().getStructure().strId && d.getDmeDestination().strId!= @paramRep.findStructureRH().getStructure().strId }">
-																						DIR
-																					</li>
-																					<li th:if="${(d.getDmeDestination().strId==@paramRep.findStructureMere().getStructure().strId)}"
-																						th:class="active_RH">RH
-																					</li>
-																					<li th:if="${(d.getDmeDestination().strId!=@paramRep.findStructureMere().getStructure().strId)}">
-																						RH
-																					</li>
+																					<li th:if="${d.getDmeDestination().getStrNiveau()<=3  &&  d.dmeEtat.toString()=='EN_COURS_DE_TRAITEMENT'}" th:class="active">CS</li>
+																					<li th:if="${d.getDmeDestination().getStrNiveau()<=4 && d.dmeEtat.toString() =='SOUMIS'or d.dmeEtat.toString()=='INITIE' }">CS</li>
+																					<li th:if="${d.getDmeDestination().getStrNiveau()<=2 && (d.dmeEtat.toString()=='EN_COURS_DE_TRAITEMENT')}" th:class="active" }>SD</li>
+																					<li th:if="${d.getDmeDestination().getStrNiveau()!=2 && d.dmeEtat.toString() != 'EN_COURS_DE_TRAITEMENT'}">SD</li>
+																					<li th:if="${(d.getDmeDestination().strId==@paramRep.findStructureRH().getStructure().strId) or d.getDmeDestination().strId==@paramRep.findStructureMere().getStructure().strId &&  d.dmeEtat.toString()=='EN_COURS_DE_TRAITEMENT'}" th:class="active">DIR</li>
+																					<li th:if="${d.getDmeDestination().strId!= @paramRep.findStructureMere().getStructure().strId && d.getDmeDestination().strId!= @paramRep.findStructureRH().getStructure().strId }">DIR</li>
+																					<li th:if="${(d.getDmeDestination().strId==@paramRep.findStructureMere().getStructure().strId)}" th:class="active_RH">RH</li>
+																					<li th:if="${(d.getDmeDestination().strId!=@paramRep.findStructureMere().getStructure().strId)}">RH</li>
 																					<li>DG</li>
 																				</div>
 																				<div th:if="${d.dmeDemandeur.agtStructure.getStrNiveau()==3}">
@@ -148,10 +143,9 @@
 								</div>
 							</div>
 						</div>
-					 </div>       
-				</div>		
+					 </div>
+				</div>
 	</div>
-
 </body>
 
 </html>

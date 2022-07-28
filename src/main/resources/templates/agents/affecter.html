@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
 </head>
 <body>
 <div layout:fragment="content">
@@ -11,14 +12,14 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-lg-7 col-md-12 col-sm-12 col-12">
-                    <h5 class="text-uppercase">Mouvement d'un agent</h5>
+                    <h5 class="text-uppercase">Affectation d"un agent</h5>
                 </div>
-                <div class="col-lg-5 col-md-12 col-sm-12 col-12">
-                    <ul class="list-inline breadcrumb float-right">
-                        <li class="list-inline-item"><a href="#">accueil</a></li>
-                        <li class="list-inline-item"><a href="#">liste Agent</a></li>
-                        <li class="list-inline-item">Basic Inputs</li>
-                    </ul>
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                        <ul class="list-inline breadcrumb float-right">
+                            <li class="list-inline-item"><a th:href="@{/agents/index}">Home</a></li>
+                            <li class="list-inline-item"><a th:href="@{/agents/GoToListeAgent}">liste</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,6 +74,8 @@
             </div>
         </div>
     </div>
+</div>
+<div layout:fragment="specific-js-dependancies">
 </div>
 
 </body>

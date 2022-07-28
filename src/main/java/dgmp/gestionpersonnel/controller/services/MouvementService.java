@@ -19,6 +19,10 @@ public class MouvementService implements IMouvementService{
         agent.setAgtStructure(mvt.getMvtStructureDes());
         agtRep.save(agent);
         mvtRep.save(mvt);
-
     }
+    public  Long TotalAffectation(){
+
+        return mvtRep.count();
+    }
+
 }
